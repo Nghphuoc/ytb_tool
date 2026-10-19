@@ -9,13 +9,21 @@
   },
   "private": true,
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0",
+    "@google/genai": "^2.30.0",
     "@remotion/cli": "4.0.536",
+    "@remotion/media-utils": "^4.0.536",
+    "@remotion/transitions": "^4.0.536",
+    "dotenv": "^18.0.8",
+    "lucide-react": "^1.59.0",
+    "openai": "^7.39.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.536"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.536",
+    "@types/node": "^26.6.5",
     "@types/react": "19.2.7",
     "@types/web": "0.0.166",
     "eslint": "10.12.0",
@@ -26,7 +34,8 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src && tsc",
+    "auto": "npx tsx src/automation/runPipeline.ts"
   },
   "allowScripts": {
     "esbuild": false

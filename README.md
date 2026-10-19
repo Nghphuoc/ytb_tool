@@ -37,6 +37,17 @@ npx remotion render
 npx remotion upgrade
 ```
 
+## Automated Shorts Pipeline
+
+Run `npm run auto` to generate the narration and render a Short. For YouTube
+scene clips, install `yt-dlp` and make sure `yt-dlp --version` works in a new
+terminal (on Windows: `winget install yt-dlp.yt-dlp`).
+
+The gameplay background and suspense music are optional. Add them as
+`public/bg/gameplay_01.mp4` and `public/audio/bgm_suspense.mp3`. If any optional
+media is unavailable, the pipeline renders generated visual fallbacks and
+continues without background music instead of failing on missing files.
+
 ## Docs
 
 Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).

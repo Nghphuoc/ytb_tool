@@ -1,0 +1,598 @@
+{
+  "totalDurationInSeconds": 37.690999999999995,
+  "voiceoverUrl": "audio/voiceover.mp3",
+  "backgroundVideoUrl": "bg/gameplay_01.mp4",
+  "backgroundVideoStartFrom": 47,
+  "bgmUrl": "audio/bgm_suspense.mp3",
+  "bgmVolume": 0.085,
+  "highlightColor": "#FF3366",
+  "captionTiltAngle": -0.57,
+  "scenes": [
+    {
+      "id": "scene-1",
+      "mediaUrl": "scenes/scene_1.mp4",
+      "mediaType": "video",
+      "startTime": 0,
+      "endTime": 4.505,
+      "cameraEffect": "zoom_in"
+    },
+    {
+      "id": "scene-2",
+      "mediaUrl": "scenes/scene_2.mp4",
+      "mediaType": "video",
+      "startTime": 4.888,
+      "endTime": 7.988,
+      "cameraEffect": "pan_left"
+    },
+    {
+      "id": "scene-3",
+      "mediaUrl": "scenes/scene_3.mp4",
+      "mediaType": "video",
+      "startTime": 8.371,
+      "endTime": 13.131,
+      "cameraEffect": "zoom_in"
+    },
+    {
+      "id": "scene-4",
+      "mediaUrl": "scenes/scene_4.mp4",
+      "mediaType": "video",
+      "startTime": 13.735,
+      "endTime": 18.46,
+      "cameraEffect": "zoom_out"
+    },
+    {
+      "id": "scene-5",
+      "mediaUrl": "scenes/scene_5.mp4",
+      "mediaType": "video",
+      "startTime": 18.634,
+      "endTime": 23.162,
+      "cameraEffect": "pan_right"
+    },
+    {
+      "id": "scene-6",
+      "mediaUrl": "scenes/scene_6.mp4",
+      "mediaType": "video",
+      "startTime": 23.766,
+      "endTime": 28.514,
+      "cameraEffect": "zoom_in"
+    },
+    {
+      "id": "scene-7",
+      "mediaUrl": "scenes/scene_7.mp4",
+      "mediaType": "video",
+      "startTime": 28.839,
+      "endTime": 32.543,
+      "cameraEffect": "zoom_out"
+    },
+    {
+      "id": "scene-8",
+      "mediaUrl": "scenes/scene_8.mp4",
+      "mediaType": "video",
+      "startTime": 32.868,
+      "endTime": 37.690999999999995,
+      "cameraEffect": "pan_left"
+    }
+  ],
+  "words": [
+    {
+      "word": "GTA",
+      "start": 0,
+      "end": 0.569
+    },
+    {
+      "word": "5",
+      "start": 0.65,
+      "end": 0.975
+    },
+    {
+      "word": "cops",
+      "start": 1.068,
+      "end": 1.393
+    },
+    {
+      "word": "have",
+      "start": 1.44,
+      "end": 1.591
+    },
+    {
+      "word": "a",
+      "start": 1.614,
+      "end": 1.649
+    },
+    {
+      "word": "hidden",
+      "start": 1.718,
+      "end": 1.962
+    },
+    {
+      "word": "combat",
+      "start": 2.032,
+      "end": 2.426
+    },
+    {
+      "word": "mechanic",
+      "start": 2.473,
+      "end": 2.879
+    },
+    {
+      "word": "almost",
+      "start": 2.961,
+      "end": 3.344
+    },
+    {
+      "word": "nobody",
+      "start": 3.402,
+      "end": 3.727
+    },
+    {
+      "word": "knows",
+      "start": 3.773,
+      "end": 3.994
+    },
+    {
+      "word": "about.",
+      "start": 4.04,
+      "end": 4.505
+    },
+    {
+      "word": "The",
+      "start": 4.888,
+      "end": 5.004
+    },
+    {
+      "word": "next",
+      "start": 5.05,
+      "end": 5.224
+    },
+    {
+      "word": "time",
+      "start": 5.248,
+      "end": 5.41
+    },
+    {
+      "word": "you",
+      "start": 5.433,
+      "end": 5.503
+    },
+    {
+      "word": "get",
+      "start": 5.561,
+      "end": 5.677
+    },
+    {
+      "word": "wanted",
+      "start": 5.735,
+      "end": 6.026
+    },
+    {
+      "word": "stars,",
+      "start": 6.06,
+      "end": 6.548
+    },
+    {
+      "word": "stop",
+      "start": 6.722,
+      "end": 6.978
+    },
+    {
+      "word": "aiming",
+      "start": 7.036,
+      "end": 7.256
+    },
+    {
+      "word": "for",
+      "start": 7.314,
+      "end": 7.407
+    },
+    {
+      "word": "their",
+      "start": 7.442,
+      "end": 7.581
+    },
+    {
+      "word": "head.",
+      "start": 7.628,
+      "end": 7.988
+    },
+    {
+      "word": "Instead,",
+      "start": 8.371,
+      "end": 9.033
+    },
+    {
+      "word": "use",
+      "start": 9.358,
+      "end": 9.567
+    },
+    {
+      "word": "precision",
+      "start": 9.613,
+      "end": 10.101
+    },
+    {
+      "word": "aim",
+      "start": 10.159,
+      "end": 10.333
+    },
+    {
+      "word": "to",
+      "start": 10.415,
+      "end": 10.484
+    },
+    {
+      "word": "shoot",
+      "start": 10.565,
+      "end": 10.809
+    },
+    {
+      "word": "the",
+      "start": 10.856,
+      "end": 10.925
+    },
+    {
+      "word": "gun",
+      "start": 10.972,
+      "end": 11.158
+    },
+    {
+      "word": "directly",
+      "start": 11.216,
+      "end": 11.668
+    },
+    {
+      "word": "out",
+      "start": 11.738,
+      "end": 11.889
+    },
+    {
+      "word": "of",
+      "start": 11.924,
+      "end": 11.97
+    },
+    {
+      "word": "an",
+      "start": 12.005,
+      "end": 12.063
+    },
+    {
+      "word": "officer's",
+      "start": 12.11,
+      "end": 12.539
+    },
+    {
+      "word": "hand.",
+      "start": 12.597,
+      "end": 13.131
+    },
+    {
+      "word": "If",
+      "start": 13.735,
+      "end": 13.863
+    },
+    {
+      "word": "you",
+      "start": 13.909,
+      "end": 13.99
+    },
+    {
+      "word": "disarm",
+      "start": 14.072,
+      "end": 14.466
+    },
+    {
+      "word": "a",
+      "start": 14.513,
+      "end": 14.536
+    },
+    {
+      "word": "police",
+      "start": 14.583,
+      "end": 14.884
+    },
+    {
+      "word": "officer",
+      "start": 14.919,
+      "end": 15.267
+    },
+    {
+      "word": "from",
+      "start": 15.302,
+      "end": 15.442
+    },
+    {
+      "word": "far",
+      "start": 15.523,
+      "end": 15.778
+    },
+    {
+      "word": "away,",
+      "start": 15.825,
+      "end": 16.347
+    },
+    {
+      "word": "their",
+      "start": 16.521,
+      "end": 16.742
+    },
+    {
+      "word": "survival",
+      "start": 16.8,
+      "end": 17.311
+    },
+    {
+      "word": "instinct",
+      "start": 17.369,
+      "end": 17.787
+    },
+    {
+      "word": "triggers.",
+      "start": 17.845,
+      "end": 18.46
+    },
+    {
+      "word": "Without",
+      "start": 18.634,
+      "end": 18.959
+    },
+    {
+      "word": "a",
+      "start": 18.983,
+      "end": 19.006
+    },
+    {
+      "word": "firearm,",
+      "start": 19.076,
+      "end": 19.853
+    },
+    {
+      "word": "they",
+      "start": 19.97,
+      "end": 20.12
+    },
+    {
+      "word": "will",
+      "start": 20.144,
+      "end": 20.295
+    },
+    {
+      "word": "completely",
+      "start": 20.341,
+      "end": 20.968
+    },
+    {
+      "word": "panic",
+      "start": 21.038,
+      "end": 21.421
+    },
+    {
+      "word": "and",
+      "start": 21.479,
+      "end": 21.548
+    },
+    {
+      "word": "sprint",
+      "start": 21.618,
+      "end": 21.955
+    },
+    {
+      "word": "away",
+      "start": 22.001,
+      "end": 22.257
+    },
+    {
+      "word": "to",
+      "start": 22.315,
+      "end": 22.373
+    },
+    {
+      "word": "take",
+      "start": 22.431,
+      "end": 22.628
+    },
+    {
+      "word": "cover.",
+      "start": 22.675,
+      "end": 23.162
+    },
+    {
+      "word": "However,",
+      "start": 23.766,
+      "end": 24.323
+    },
+    {
+      "word": "if",
+      "start": 24.497,
+      "end": 24.637
+    },
+    {
+      "word": "you",
+      "start": 24.695,
+      "end": 24.776
+    },
+    {
+      "word": "shoot",
+      "start": 24.857,
+      "end": 25.09
+    },
+    {
+      "word": "the",
+      "start": 25.136,
+      "end": 25.205
+    },
+    {
+      "word": "weapon",
+      "start": 25.263,
+      "end": 25.542
+    },
+    {
+      "word": "while",
+      "start": 25.577,
+      "end": 25.774
+    },
+    {
+      "word": "standing",
+      "start": 25.809,
+      "end": 26.227
+    },
+    {
+      "word": "right",
+      "start": 26.297,
+      "end": 26.483
+    },
+    {
+      "word": "in",
+      "start": 26.517,
+      "end": 26.587
+    },
+    {
+      "word": "front",
+      "start": 26.645,
+      "end": 26.819
+    },
+    {
+      "word": "of",
+      "start": 26.842,
+      "end": 26.889
+    },
+    {
+      "word": "them,",
+      "start": 26.935,
+      "end": 27.202
+    },
+    {
+      "word": "things",
+      "start": 27.272,
+      "end": 27.539
+    },
+    {
+      "word": "get",
+      "start": 27.585,
+      "end": 27.736
+    },
+    {
+      "word": "dangerous.",
+      "start": 27.783,
+      "end": 28.514
+    },
+    {
+      "word": "They",
+      "start": 28.839,
+      "end": 29.014
+    },
+    {
+      "word": "instantly",
+      "start": 29.083,
+      "end": 29.513
+    },
+    {
+      "word": "whip",
+      "start": 29.559,
+      "end": 29.722
+    },
+    {
+      "word": "out",
+      "start": 29.78,
+      "end": 29.896
+    },
+    {
+      "word": "a",
+      "start": 29.931,
+      "end": 29.954
+    },
+    {
+      "word": "hidden",
+      "start": 30.012,
+      "end": 30.233
+    },
+    {
+      "word": "backup",
+      "start": 30.279,
+      "end": 30.604
+    },
+    {
+      "word": "pistol",
+      "start": 30.651,
+      "end": 30.964
+    },
+    {
+      "word": "and",
+      "start": 31.022,
+      "end": 31.103
+    },
+    {
+      "word": "dump",
+      "start": 31.161,
+      "end": 31.347
+    },
+    {
+      "word": "a",
+      "start": 31.382,
+      "end": 31.405
+    },
+    {
+      "word": "magazine",
+      "start": 31.463,
+      "end": 31.962
+    },
+    {
+      "word": "into",
+      "start": 31.997,
+      "end": 32.171
+    },
+    {
+      "word": "you.",
+      "start": 32.241,
+      "end": 32.543
+    },
+    {
+      "word": "Even",
+      "start": 32.868,
+      "end": 33.089
+    },
+    {
+      "word": "after",
+      "start": 33.123,
+      "end": 33.356
+    },
+    {
+      "word": "a",
+      "start": 33.414,
+      "end": 33.449
+    },
+    {
+      "word": "decade,",
+      "start": 33.518,
+      "end": 34.099
+    },
+    {
+      "word": "mind-blowing",
+      "start": 34.273,
+      "end": 35.027
+    },
+    {
+      "word": "details",
+      "start": 35.097,
+      "end": 35.596
+    },
+    {
+      "word": "like",
+      "start": 35.654,
+      "end": 35.829
+    },
+    {
+      "word": "this",
+      "start": 35.863,
+      "end": 36.026
+    },
+    {
+      "word": "reveal",
+      "start": 36.107,
+      "end": 36.49
+    },
+    {
+      "word": "why...",
+      "start": 36.572,
+      "end": 37.291
+    }
+  ]
+}
