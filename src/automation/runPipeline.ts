@@ -1,14 +1,21 @@
-import { execFileSync } from 'child_process';
-import fs from 'fs';
-import path from 'path';
-import { ShortVideoProps } from '../types/types';
+import { execFileSync, type ExecFileSyncOptions } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
+import dotenv from 'dotenv';
+import type { ShortVideoProps } from '../types/types';
 import { fetchRedditAndGenerateScriptGemini } from './1_fechRedditAndScriptGemini';
+import { fetchRedditAndGenerateScript } from './1_fetchRedditAndScript';
 import { generateAudioAndSyncScenes } from './2_generateAudio';
 import { downloadSceneAssets } from './3_downloadAssets';
+import { resolvePrompt } from './promptParser';
+
+dotenv.config();
 
 const HIGHLIGHT_COLORS = ['#FFD700', '#00FF66', '#00E5FF', '#FF3366'];
 
-// Hàm hỗ trợ đo thời gian từng bước
+/**
+ * Đo thời gian thực thi của từng công đoạn
+ */
 async function measureTime<T>(stepName: string, fn: () => Promise<T> | T): Promise<T> {
   const start = Date.now();
   console.log(`⏳ [Bắt đầu] ${stepName}...`);
@@ -23,8 +30,15 @@ async function measureTime<T>(stepName: string, fn: () => Promise<T> | T): Promi
   }
 }
 
-// Hàm hỗ trợ chạy lệnh với cơ chế Retry
-function runWithRetry(cmd: string, args: string[], options: any, retries = 3) {
+/**
+ * Thực thi lệnh ngoại vi với cơ chế Retry
+ */
+function runWithRetry(
+  cmd: string,
+  args: string[],
+  options: ExecFileSyncOptions,
+  retries = 2
+) {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       return execFileSync(cmd, args, options);
@@ -35,72 +49,115 @@ function runWithRetry(cmd: string, args: string[], options: any, retries = 3) {
   }
 }
 
-// Dọn dẹp file cũ (giữ lại file trong vòng 7 ngày)
+/**
+ * Dọn dẹp file cũ trong thư mục out/ (giữ lại trong maxDays)
+ */
 function cleanupOldFiles(dir: string, maxDays = 7) {
   if (!fs.existsSync(dir)) return;
   const now = Date.now();
   const maxAgeMs = maxDays * 24 * 60 * 60 * 1000;
-  
-  fs.readdirSync(dir).forEach((file) => {
+
+  for (const file of fs.readdirSync(dir)) {
     const filePath = path.join(dir, file);
-    const stats = fs.statSync(filePath);
-    if (now - stats.mtimeMs > maxAgeMs) {
-      fs.unlinkSync(filePath);
-      console.log(`🧹 Đã dọn dẹp file cũ: ${file}`);
+    try {
+      const stats = fs.statSync(filePath);
+      if (now - stats.mtimeMs > maxAgeMs) {
+        fs.unlinkSync(filePath);
+        console.log(`🧹 Đã dọn dẹp file cũ: ${file}`);
+      }
+    } catch {
+      // Ignore cleanup error on open files
     }
-  });
+  }
+}
+
+/**
+ * Kiểm tra các biến môi trường cần thiết trước khi khởi chạy
+ */
+function validatePreflight() {
+  const provider = (process.env.LLM_PROVIDER || 'gemini').toLowerCase();
+  const missingKeys: string[] = [];
+
+  if (provider === 'gemini' && !process.env.GEMINI_API_KEY) {
+    missingKeys.push('GEMINI_API_KEY');
+  } else if (provider === 'claude' && !process.env.ANTHROPIC_API_KEY) {
+    missingKeys.push('ANTHROPIC_API_KEY');
+  }
+
+  if (!process.env.ELEVENLABS_API_KEY) {
+    missingKeys.push('ELEVENLABS_API_KEY');
+  } else if (!process.env.ELEVENLABS_API_KEY.startsWith('sk_')) {
+    console.error('\n❌ ELEVENLABS_API_KEY KHÔNG HỢP LỆ:');
+    console.error('   Chuỗi hiện tại trong .env là "Key ID" (cf94d...), không phải Secret API Key.');
+    console.error('   API Key của ElevenLabs bắt buộc phải bắt đầu bằng "sk_".');
+    console.error('   👉 Cách lấy: Vào https://elevenlabs.io/app/settings/api-keys > Create Key (hoặc bấm Copy Secret Key).\n');
+    throw new Error('Invalid ELEVENLABS_API_KEY format: Must start with "sk_"');
+  }
+
+  if (missingKeys.length > 0) {
+    console.error('\n❌ THIẾU CẤU HÌNH BIẾN MÔI TRƯỜNG:');
+    console.error(`   Vui lòng tạo file .env từ .env.example và điền: ${missingKeys.join(', ')}\n`);
+    throw new Error(`Missing environment keys: ${missingKeys.join(', ')}`);
+  }
 }
 
 async function runFullPipeline() {
   const pipelineStart = Date.now();
-  console.log('🚀 BẮT ĐẦU DÂY CHUYỀN SẢN XUẤT YOUTUBE SHORTS TỰ ĐỘNG...');
+  console.log('===========================================================');
+  console.log('🚀 BẮT ĐẦU DÂY CHUYỀN SẢN XUẤT YOUTUBE SHORTS TỰ ĐỘNG');
+  console.log('===========================================================');
 
   try {
-    // Đảm bảo các thư mục cần thiết tồn tại và dọn dẹp file rác cũ song song
+    validatePreflight();
+
+    // Thu thập prompt (CLI parameter, Terminal trực tiếp hoặc file prompt.txt)
+    const promptInfo = await resolvePrompt();
+
     const dataDir = path.join(process.cwd(), 'data');
     const outDir = path.join(process.cwd(), 'out');
-    
-    await measureTime('Chuẩn bị thư mục & Dọn dẹp', () => {
+
+    await measureTime('Chuẩn bị thư mục & Dọn dẹp cache', () => {
       fs.mkdirSync(dataDir, { recursive: true });
       fs.mkdirSync(outDir, { recursive: true });
       cleanupOldFiles(outDir, 7);
     });
 
-    // 1 & 2. Chạy lấy kịch bản và chuẩn bị tài nguyên (Có thể tối ưu nếu API độc lập, ở đây giữ logic cốt lõi)
-    const scriptData = await measureTime('Lấy ý tưởng & Kịch bản từ Gemini', () =>
-      fetchRedditAndGenerateScriptGemini('GamingDetails')
-    );
+    // 1. Sinh kịch bản qua AI (Gemini hoặc Claude tùy cấu hình)
+    const provider = (process.env.LLM_PROVIDER || 'gemini').toLowerCase();
+    const scriptData = await measureTime(`Lấy ý tưởng & Kịch bản từ AI (${provider})`, () => {
+      if (provider === 'claude') {
+        return fetchRedditAndGenerateScript(promptInfo);
+      }
+      return fetchRedditAndGenerateScriptGemini(promptInfo);
+    });
 
+    // 2. Tạo giọng đọc và đồng bộ Scene timing
     const audioData = await measureTime('Tạo giọng đọc ElevenLabs & Đồng bộ Scene', () =>
       generateAudioAndSyncScenes(scriptData.fullText, scriptData.rawScenes)
     );
 
-    const availableSceneIndices = await measureTime('Tải video minh họa từng Scene', () =>
+    // 3. Tải tài nguyên video hành động (yt-dlp + FFmpeg)
+    await measureTime('Tải video minh họa từng Scene', () =>
       downloadSceneAssets(scriptData.rawScenes)
     );
 
-    // 3. Chuẩn bị thông số Anti-Detection & Kiểm tra file media song song
-    const backgroundVideoPath = path.join(process.cwd(), 'public', 'bg', 'gameplay_01.mp4');
+    // 4. Kiểm tra tài nguyên âm thanh & Chống quét trùng lặp
     const bgmPath = path.join(process.cwd(), 'public', 'audio', 'bgm_suspense.mp3');
+    const hasBgm = fs.existsSync(bgmPath);
 
-    const [hasBgVideo, hasBgm] = await Promise.all([
-      Promise.resolve(fs.existsSync(backgroundVideoPath)),
-      Promise.resolve(fs.existsSync(bgmPath)),
-    ]);
-
-    if (!hasBgVideo) console.warn('⚠️ Thiếu public/bg/gameplay_01.mp4; dùng background visual fallback.');
-    if (!hasBgm) console.warn('⚠️ Thiếu public/audio/bgm_suspense.mp3; render sẽ không có nhạc nền.');
+    if (!hasBgm) {
+      console.warn('⚠️ Thiếu public/audio/bgm_suspense.mp3; video sẽ không có nhạc nền.');
+    }
 
     const randomColor = HIGHLIGHT_COLORS[Math.floor(Math.random() * HIGHLIGHT_COLORS.length)];
     const randomTilt = Number(((Math.random() * 2.4) - 1.2).toFixed(2));
-    const randomBgStart = Math.floor(Math.random() * 120) + 10;
     const randomBgmVolume = Number((0.08 + Math.random() * 0.04).toFixed(3));
 
     const finalProps: ShortVideoProps = {
       totalDurationInSeconds: audioData.totalDurationInSeconds,
       voiceoverUrl: audioData.voiceoverUrl,
-      backgroundVideoUrl: hasBgVideo ? 'bg/gameplay_01.mp4' : null,
-      backgroundVideoStartFrom: randomBgStart,
+      backgroundVideoUrl: null,
+      backgroundVideoStartFrom: 0,
       bgmUrl: hasBgm ? 'audio/bgm_suspense.mp3' : null,
       bgmVolume: randomBgmVolume,
       highlightColor: randomColor,
@@ -108,24 +165,29 @@ async function runFullPipeline() {
       scenes: audioData.syncedScenes.map((scene, index) => {
         const sfxAvailable =
           scene.sfxUrl && fs.existsSync(path.join(process.cwd(), 'public', scene.sfxUrl));
+        const sceneFile = `scenes/scene_${index + 1}.mp4`;
+        const exists = fs.existsSync(path.join(process.cwd(), 'public', sceneFile));
+
         return {
           ...scene,
-          ...(availableSceneIndices.has(index) ? {} : { mediaUrl: '', mediaType: 'generated' as const }),
+          mediaUrl: exists ? sceneFile : scene.mediaUrl,
+          mediaType: 'video' as const,
           sfxUrl: sfxAvailable ? scene.sfxUrl : undefined,
         };
       }),
       words: audioData.words,
     };
 
-    // Lưu file Props JSON
+    // Lưu file Props JSON (để Remotion render CLI đọc và Studio preview)
     const propsFilePath = path.join(dataDir, 'current_props.json');
-    fs.writeFileSync(propsFilePath, JSON.stringify(finalProps, null, 2));
+    fs.writeFileSync(propsFilePath, JSON.stringify(finalProps, null, 2), 'utf-8');
+    console.log(`💾 Đã lưu cấu hình video tại: data/current_props.json`);
 
-    // 4. Gọi lệnh Render 60fps của Remotion (Có áp dụng Retry và tối ưu Concurrency)
+    // 5. Render Video Full-Screen 30fps (Tối ưu siêu tốc cho CPU Intel i5)
     const safeTitle = scriptData.title.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 40);
     const outputVideoPath = path.join(outDir, `${Date.now()}_${safeTitle}.mp4`);
 
-    await measureTime('Render Video Remotion (60fps)', () => {
+    await measureTime('Render Video Remotion (1080x1920 @ 30fps Full-Screen)', () => {
       runWithRetry(
         process.execPath,
         [
@@ -136,26 +198,24 @@ async function runFullPipeline() {
           outputVideoPath,
           `--props=${propsFilePath}`,
           '--codec=h264',
-          '--crf=22', // Tăng nhẹ từ 18 lên 20 giúp render nhanh hơn đáng kể mà chất lượng không giảm nhiều bằng mắt thường
-          '--concurrency=2', // Tận dụng tối đa tài nguyên CPU
-          '--gl=angle', 
+          '--crf=23',
+          '--concurrency=6',
+          '--gl=angle',
         ],
         { stdio: 'inherit' },
-        2 // Thử lại tối đa 2 lần nếu lỗi render đột ngột
+        2
       );
     });
 
-    // Dọn dẹp file props tạm sau khi render xong để nhẹ ổ cứng
-    if (fs.existsSync(propsFilePath)) {
-      fs.unlinkSync(propsFilePath);
-    }
-
     const totalElapsed = ((Date.now() - pipelineStart) / 1000).toFixed(1);
-    console.log(`\n🎉 HOÀN TẤT TOÀN BỘ PIPELINE TRONG ${totalElapsed}s!`);
-    console.log(`📌 Tiêu đề gợi ý: ${scriptData.title}`);
-    console.log(`📂 File Video: ${outputVideoPath}`);
+    console.log('\n===========================================================');
+    console.log(`🎉 HOÀN TẤT TOÀN BỘ PIPELINE TRONG ${totalElapsed}s!`);
+    console.log(`📌 Tiêu đề: ${scriptData.title}`);
+    console.log(`📂 File kết quả: ${outputVideoPath}`);
+    console.log('💡 Gợi ý: Chạy "npm run dev" để mở Remotion Studio kiểm tra.');
+    console.log('===========================================================');
   } catch (error) {
-    console.error('❌ Lỗi nghiêm trọng trong quá trình chạy Pipeline:', error);
+    console.error('\n❌ Lỗi nghiêm trọng trong quá trình chạy Pipeline:', error);
     process.exit(1);
   }
 }

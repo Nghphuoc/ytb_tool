@@ -1,11 +1,9 @@
 import type { FC } from 'react';
-import { Composition, type AnyZodObject } from 'remotion';
+import { Composition } from 'remotion';
 import { MainShort } from './MainShort';
-import type { ShortVideoProps } from './types/types';
+import { ShortVideoPropsSchema, type ShortVideoProps } from './types/types';
 
-type MainCompositionProps = ShortVideoProps & Record<string, unknown>;
-
-const defaultProps: MainCompositionProps = {
+const defaultProps: ShortVideoProps = {
   totalDurationInSeconds: 10,
   voiceoverUrl: null,
   backgroundVideoUrl: null,
@@ -47,16 +45,18 @@ const defaultProps: MainCompositionProps = {
 
 export const RemotionRoot: FC = () => {
   return (
-    <Composition<AnyZodObject, MainCompositionProps>
+    <Composition
       id="MainShort"
       component={MainShort}
-      fps={60}
+      schema={ShortVideoPropsSchema}
+      fps={30}
       width={1080}
       height={1920}
       defaultProps={defaultProps}
       calculateMetadata={({ props }) => {
+        const safeDuration = Math.max(1, props.totalDurationInSeconds || 10);
         return {
-          durationInFrames: Math.ceil(props.totalDurationInSeconds * 60),
+          durationInFrames: Math.ceil(safeDuration * 30),
         };
       }}
     />

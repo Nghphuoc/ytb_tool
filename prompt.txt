@@ -1,0 +1,19 @@
+# ==============================================================================
+# 🎬 HƯỚNG DẪN NHẬP PROMPT TẠO YOUTUBE SHORTS (Format Chuẩn)
+#
+# Cú pháp chuẩn (ngăn cách bằng dấu gạch đứng | ):
+# [Tên Game] | [Chi tiết / Bí mật chính] | [Phong cách video]
+#
+# Ví dụ:
+# GTA 5 | Cảnh sát rút súng lục dự phòng khi bị bắn rơi vũ khí | Hồi hộp, kịch tính
+# Red Dead Redemption 2 | Opossum giả chết khi người chơi tới gần và bỏ chạy | Bí ẩn, cuốn hút
+# Elden Ring | Margit ném dao tức thì khi phát hiện người chơi uống máu | Hài hước, gay cấn
+# Cyberpunk 2077 | Khẩu súng Skippy biết nói chuyện và tự ngắm bắn kẻ thù | Viral, thú vị
+# Black Myth Wukong | Kỹ năng biến hình và đòn đánh gậy như ý bất ngờ | Mãn nhãn, hào hùng
+#
+# Ghi chú:
+# - Các dòng bắt đầu bằng dấu # là chú thích và sẽ được bỏ qua.
+# - Dòng chữ bên dưới cùng (không có #) sẽ là prompt được tự động nạp vào video!
+# ==============================================================================
+
+Cyberpunk 2077 | Khẩu súng Skippy biết nói chuyện và tự động ngắm bắn kẻ thù | Hài hước, thú vị
