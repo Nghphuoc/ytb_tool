@@ -3,16 +3,34 @@ import path from 'node:path';
 import readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 
+export type VideoCategory = 'gaming' | 'kids-pets';
+
 export interface PromptInfo {
   game: string;
   detail: string;
   tone: string;
+  /** 'on' = generate ElevenLabs voiceover, 'off' = caption-only (no spoken audio) */
+  voiceover: 'on' | 'off';
+  /** Determines BGM style and prompt template */
+  category: VideoCategory;
   raw: string;
 }
 
 /**
- * Phân tích chuỗi prompt theo format chuẩn:
- * [Tên Game] | [Chi tiết / Bí mật chính] | [Phong cách video]
+ * Phân tích chuỗi prompt theo format chuẩn mở rộng:
+ *
+ * Format Gaming (cũ – tương thích ngược):
+ *   [Tên Game] | [Chi tiết / Bí mật chính] | [Phong cách video]
+ *
+ * Format mới (đầy đủ 5 trường):
+ *   [Chủ đề / Nhân vật] | [Chi tiết / Kịch bản] | [Phong cách] | [voiceover: on|off] | [category: gaming|kids-pets]
+ *
+ * Ví dụ Kids/Pets:
+ *   Funny Cats | Mèo bị ngã khỏi ghế rồi giả vờ không có chuyện | Hài hước, dễ thương | off | kids-pets
+ *   Golden Retriever | Chó tự lấy đồ chơi và mang cho bé | Cute, heartwarming | on | kids-pets
+ *
+ * Ví dụ Gaming:
+ *   GTA 5 | Cảnh sát rút súng dự phòng | Hồi hộp, kịch tính | on | gaming
  */
 export function parsePromptString(text: string): PromptInfo {
   const cleanText = text.trim();
@@ -22,10 +40,29 @@ export function parsePromptString(text: string): PromptInfo {
   const detail = parts[1] || '';
   const tone = parts[2] || 'Hồi hộp, kịch tính và cuốn hút';
 
+  // Field 4: voiceover toggle (default: on)
+  const voiceoverRaw = (parts[3] || 'on').toLowerCase();
+  const voiceover: 'on' | 'off' = voiceoverRaw === 'off' ? 'off' : 'on';
+
+  // Field 5: category – auto-detect from game name / tone if not provided
+  const categoryRaw = (parts[4] || '').toLowerCase();
+  let category: VideoCategory = 'gaming';
+  if (categoryRaw === 'kids-pets' || categoryRaw === 'kids' || categoryRaw === 'pets') {
+    category = 'kids-pets';
+  } else if (categoryRaw === '') {
+    // Auto-detect: if game name contains pet/animal/kids-related words
+    const petKeywords = /cat|dog|kitten|puppy|bunny|hamster|bird|animal|pet|baby|kid|child|cute/i;
+    if (petKeywords.test(game) || petKeywords.test(detail)) {
+      category = 'kids-pets';
+    }
+  }
+
   return {
     game,
     detail,
     tone,
+    voiceover,
+    category,
     raw: cleanText,
   };
 }
@@ -93,11 +130,12 @@ export async function resolvePrompt(): Promise<PromptInfo | null> {
     const filePrompt = readPromptFromFile();
     const defaultHint = filePrompt ? `"${filePrompt.raw}" (từ prompt.txt)` : 'Cào tự động từ Reddit';
 
-    console.log('\n┌─────────────────────────────────────────────────────────────────┐');
-    console.log('│ 🎬 NHẬP PROMPT TẠO VIDEO SHORTS                                 │');
-    console.log('│ Cú pháp chuẩn: [Tên Game] | [Chi tiết / Bí mật] | [Phong cách]  │');
-    console.log('│ 👉 Bấm [Enter] để dùng mặc định: ' + defaultHint.slice(0, 30) + '...│');
-    console.log('└─────────────────────────────────────────────────────────────────┘');
+    console.log('\n┌──────────────────────────────────────────────────────────────────────────────────┐');
+    console.log('│ 🎬 NHẬP PROMPT TẠO VIDEO SHORTS                                                  │');
+    console.log('│ Gaming : [Game]  | [Chi tiết] | [Phong cách] | [on|off] | gaming               │');
+    console.log('│ Kids   : [Chủ đề]| [Kịch bản] | [Phong cách] | [on|off] | kids-pets            │');
+    console.log('│ 👉 Bấm [Enter] để dùng mặc định: ' + defaultHint.slice(0, 46) + '│');
+    console.log('└──────────────────────────────────────────────────────────────────────────────────┘');
 
     const rl = readline.createInterface({ input, output });
     try {

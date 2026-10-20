@@ -21,6 +21,8 @@ export const SceneItemSchema = z.object({
 export const ShortVideoPropsSchema = z.object({
   totalDurationInSeconds: z.number().positive(),
   voiceoverUrl: z.string().nullable(),
+  /** When false, the voiceover Audio track is not rendered (caption-only mode) */
+  voiceoverEnabled: z.boolean().default(true),
   backgroundVideoUrl: z.string().nullable(),
   backgroundVideoStartFrom: z.number().default(0), // Offset in seconds to prevent duplicate detection
   bgmUrl: z.string().nullable(),

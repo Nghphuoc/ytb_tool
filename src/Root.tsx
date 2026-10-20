@@ -1,11 +1,12 @@
 import type { FC } from 'react';
-import { Composition } from 'remotion';
+import { Composition, Folder } from 'remotion';
 import { MainShort } from './MainShort';
 import { ShortVideoPropsSchema, type ShortVideoProps } from './types/types';
 
 const defaultProps: ShortVideoProps = {
   totalDurationInSeconds: 10,
   voiceoverUrl: null,
+  voiceoverEnabled: true,
   backgroundVideoUrl: null,
   backgroundVideoStartFrom: 15,
   bgmUrl: null,
@@ -45,20 +46,22 @@ const defaultProps: ShortVideoProps = {
 
 export const RemotionRoot: FC = () => {
   return (
-    <Composition
-      id="MainShort"
-      component={MainShort}
-      schema={ShortVideoPropsSchema}
-      fps={30}
-      width={1080}
-      height={1920}
-      defaultProps={defaultProps}
-      calculateMetadata={({ props }) => {
-        const safeDuration = Math.max(1, props.totalDurationInSeconds || 10);
-        return {
-          durationInFrames: Math.ceil(safeDuration * 30),
-        };
-      }}
-    />
+    <>
+      <Composition
+        id="MainShort"
+        component={MainShort}
+        schema={ShortVideoPropsSchema}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={defaultProps}
+        calculateMetadata={({ props }) => {
+          const safeDuration = Math.max(1, props.totalDurationInSeconds || 10);
+          return {
+            durationInFrames: Math.ceil(safeDuration * 30),
+          };
+        }}
+      />
+    </>
   );
 };

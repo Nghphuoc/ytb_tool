@@ -167,3 +167,68 @@ export async function generateAudioAndSyncScenes(
     totalDurationInSeconds,
   };
 }
+
+// =============================================================================
+// CAPTION-ONLY MODE (voiceover = off)
+// Sinh word-timings từ độ dài câu — không gọi ElevenLabs
+// =============================================================================
+
+/**
+ * Tạo timings giả từ số từ trong mỗi câu (≈ 150 từ/phút).
+ * Dùng khi voiceover = 'off': video chỉ có BGM + caption tự chạy.
+ */
+export async function generateCaptionOnlyTimings(rawScenes: RawSceneScript[]) {
+  console.log('📝 [Step 2] Voiceover OFF — Tạo caption timings từ độ dài câu (150 WPM)...');
+
+  const WORDS_PER_SECOND = 150 / 60; // ≈ 2.5 từ/giây
+  const MIN_SCENE_DURATION = 3.5;    // Tối thiểu mỗi cảnh (giây)
+
+  const words: { word: string; start: number; end: number }[] = [];
+  const syncedScenes: import('../types/types').SceneItem[] = [];
+
+  let cursor = 0;
+
+  rawScenes.forEach((raw, index) => {
+    const wordsInSentence = raw.sentence.trim().split(/\s+/).filter(Boolean);
+    const wordCount = Math.max(1, wordsInSentence.length);
+    const sceneDuration = Math.max(MIN_SCENE_DURATION, wordCount / WORDS_PER_SECOND);
+    const secPerWord = sceneDuration / wordCount;
+
+    const startTime = cursor;
+    const endTime = cursor + sceneDuration;
+
+    // Gán thời gian cho từng từ
+    wordsInSentence.forEach((word, wi) => {
+      const wStart = startTime + wi * secPerWord;
+      words.push({
+        word,
+        start: Number(wStart.toFixed(3)),
+        end: Number((wStart + secPerWord * 0.85).toFixed(3)), // 85% để tránh chồng
+      });
+    });
+
+    syncedScenes.push({
+      id: `scene-${index + 1}`,
+      mediaUrl: `scenes/scene_${index + 1}.mp4`,
+      mediaType: 'video',
+      startTime: Number(startTime.toFixed(3)),
+      endTime: Number(endTime.toFixed(3)),
+      cameraEffect: raw.cameraEffect,
+      sfxUrl: raw.sfxUrl || undefined,
+    });
+
+    cursor = endTime;
+  });
+
+  const totalDurationInSeconds = Number(cursor.toFixed(2));
+  console.log(
+    `✅ Caption timings: ${totalDurationInSeconds.toFixed(1)}s tổng — ${syncedScenes.length} scenes (không có voiceover).`
+  );
+
+  return {
+    voiceoverUrl: null as null,
+    words,
+    syncedScenes,
+    totalDurationInSeconds,
+  };
+}

@@ -11,7 +11,14 @@ import { resolvePrompt } from './promptParser';
 
 dotenv.config();
 
-const HIGHLIGHT_COLORS = ['#FFD700', '#00FF66', '#00E5FF', '#FF3366'];
+const HIGHLIGHT_COLORS_GAMING = ['#FFD700', '#00FF66', '#00E5FF', '#FF3366'];
+const HIGHLIGHT_COLORS_KIDS = ['#FF85A1', '#FFCF56', '#7ED8F6', '#B6F7C1'];
+
+/** BGM file selection based on video category */
+const BGM_FILES: Record<string, string> = {
+  gaming: 'audio/bgm_suspense.mp3',
+  'kids-pets': 'audio/bgm_cute.mp3',
+};
 
 /**
  * Đo thời gian thực thi của từng công đoạn
@@ -132,8 +139,22 @@ async function runFullPipeline() {
     });
 
     // 2. Tạo giọng đọc và đồng bộ Scene timing
-    const audioData = await measureTime('Tạo giọng đọc ElevenLabs & Đồng bộ Scene', () =>
-      generateAudioAndSyncScenes(scriptData.fullText, scriptData.rawScenes)
+    //    Nếu voiceover = 'off': bỏ qua ElevenLabs, tạo timings từ độ dài câu
+    const voiceoverOn = scriptData.voiceover === 'on';
+    const { generateCaptionOnlyTimings } = await import('./2_generateAudio');
+
+    type AudioResult = Awaited<ReturnType<typeof generateAudioAndSyncScenes>>;
+    const audioData = await measureTime<AudioResult>(
+      voiceoverOn
+        ? 'Tạo giọng đọc ElevenLabs & Đồng bộ Scene'
+        : 'Bỏ qua ElevenLabs (voiceover=off) – Tạo timings từ độ dài câu',
+      async () => {
+        if (!voiceoverOn) {
+          const result = await generateCaptionOnlyTimings(scriptData.rawScenes);
+          return { ...result, voiceoverUrl: result.voiceoverUrl as string | null } as AudioResult;
+        }
+        return generateAudioAndSyncScenes(scriptData.fullText, scriptData.rawScenes);
+      }
     );
 
     // 3. Tải tài nguyên video hành động (yt-dlp + FFmpeg)
@@ -141,24 +162,47 @@ async function runFullPipeline() {
       downloadSceneAssets(scriptData.rawScenes)
     );
 
-    // 4. Kiểm tra tài nguyên âm thanh & Chống quét trùng lặp
-    const bgmPath = path.join(process.cwd(), 'public', 'audio', 'bgm_suspense.mp3');
+    // 4. Kiểm tra tài nguyên âm thanh & Tự động chọn BGM theo category
+    const category = scriptData.category ?? 'gaming';
+    const preferredBgmFile = BGM_FILES[category] ?? BGM_FILES['gaming'];
+    const bgmPath = path.join(process.cwd(), 'public', preferredBgmFile);
+
+    // Fallback: nếu BGM category không tồn tại, thử file còn lại
+    const fallbackBgmFile = category === 'kids-pets' ? BGM_FILES['gaming'] : BGM_FILES['kids-pets'];
+    const fallbackBgmPath = path.join(process.cwd(), 'public', fallbackBgmFile ?? '');
+
     const hasBgm = fs.existsSync(bgmPath);
+    const hasFallbackBgm = !hasBgm && fs.existsSync(fallbackBgmPath);
+    const activeBgmFile = hasBgm ? preferredBgmFile : hasFallbackBgm ? fallbackBgmFile : null;
 
     if (!hasBgm) {
-      console.warn('⚠️ Thiếu public/audio/bgm_suspense.mp3; video sẽ không có nhạc nền.');
+      if (hasFallbackBgm) {
+        console.warn(`⚠️ Không tìm thấy ${preferredBgmFile}; dùng ${fallbackBgmFile} thay thế.`);
+      } else {
+        console.warn(`⚠️ Không tìm thấy file BGM nào; video sẽ không có nhạc nền.`);
+      }
+    } else {
+      console.log(`🎵 BGM tự động: ${preferredBgmFile} (category: ${category})`);
     }
 
+    const isKidsPets = category === 'kids-pets';
+    const HIGHLIGHT_COLORS = isKidsPets ? HIGHLIGHT_COLORS_KIDS : HIGHLIGHT_COLORS_GAMING;
+
     const randomColor = HIGHLIGHT_COLORS[Math.floor(Math.random() * HIGHLIGHT_COLORS.length)];
-    const randomTilt = Number(((Math.random() * 2.4) - 1.2).toFixed(2));
-    const randomBgmVolume = Number((0.08 + Math.random() * 0.04).toFixed(3));
+    const randomTilt = isKidsPets
+      ? Number(((Math.random() * 1.2) - 0.6).toFixed(2))   // Kids: gentler tilt
+      : Number(((Math.random() * 2.4) - 1.2).toFixed(2));  // Gaming: full tilt range
+    const randomBgmVolume = isKidsPets
+      ? Number((0.12 + Math.random() * 0.06).toFixed(3))   // Kids: slightly louder BGM
+      : Number((0.08 + Math.random() * 0.04).toFixed(3));
 
     const finalProps: ShortVideoProps = {
       totalDurationInSeconds: audioData.totalDurationInSeconds,
-      voiceoverUrl: audioData.voiceoverUrl,
+      voiceoverUrl: voiceoverOn ? (audioData.voiceoverUrl ?? null) : null,
+      voiceoverEnabled: voiceoverOn,
       backgroundVideoUrl: null,
       backgroundVideoStartFrom: 0,
-      bgmUrl: hasBgm ? 'audio/bgm_suspense.mp3' : null,
+      bgmUrl: activeBgmFile ?? null,
       bgmVolume: randomBgmVolume,
       highlightColor: randomColor,
       captionTiltAngle: randomTilt,

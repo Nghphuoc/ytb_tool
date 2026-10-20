@@ -15,6 +15,10 @@ export interface GeneratedScript {
   title: string;
   fullText: string;
   rawScenes: RawSceneScript[];
+  /** Whether to generate ElevenLabs voiceover for this video */
+  voiceover: 'on' | 'off';
+  /** Video category — drives BGM selection and prompt template */
+  category: 'gaming' | 'kids-pets';
 }
 
 const FALLBACK_TOPICS = [
@@ -49,15 +53,17 @@ export async function fetchRedditAndGenerateScript(
 
   if (parsedPrompt) {
     console.log(`🎯 [Step 1] Sử dụng prompt theo format chuẩn:`);
-    console.log(`   🎮 Game: ${parsedPrompt.game}`);
+    console.log(`   🎮 Game/Chủ đề: ${parsedPrompt.game}`);
     console.log(`   🔍 Chi tiết: ${parsedPrompt.detail || '(Tự động sáng tạo chi tiết hot nhất)'}`);
     console.log(`   🎭 Phong cách: ${parsedPrompt.tone}`);
+    console.log(`   🔉 Voiceover: ${parsedPrompt.voiceover.toUpperCase()}`);
+    console.log(`   🏷️  Category: ${parsedPrompt.category}`);
     gameContext = parsedPrompt.game;
     toneContext = parsedPrompt.tone;
     postTitle = parsedPrompt.detail
       ? `${parsedPrompt.game}: ${parsedPrompt.detail}`
       : `${parsedPrompt.game} Insane Secret Detail`;
-    postText = `Game: ${parsedPrompt.game}. Detail/Secret: ${parsedPrompt.detail || 'Hidden lore and insane gameplay mechanics'}. Tone: ${parsedPrompt.tone}. Make each scene describe clear, specific action gameplay footage.`;
+    postText = `Game/Topic: ${parsedPrompt.game}. Detail/Secret: ${parsedPrompt.detail || 'Hidden lore and insane gameplay mechanics'}. Tone: ${parsedPrompt.tone}.`;
   } else {
     console.log(`🔍 [Step 1] Đang lấy dữ liệu từ r/${subreddit}...`);
 
@@ -110,7 +116,39 @@ export async function fetchRedditAndGenerateScript(
 
   const anthropic = new Anthropic({ apiKey });
 
-  const prompt = `
+  const category = parsedPrompt?.category ?? 'gaming';
+  const isKidsPets = category === 'kids-pets';
+
+  const prompt = isKidsPets
+    ? `
+You are an expert viral YouTube Shorts scriptwriter for a Kids & Pets entertainment channel.
+Create a fun, wholesome, and hilarious short video script based on:
+- Subject / Character: ${gameContext}
+- Story / Moment: ${postText}
+- Tone / Style: ${toneContext}
+
+Write a fast-paced, cheerful 35 to 45-second script (around 100-200 words total).
+Break the script into 6 to 8 short, punchy sentences (each sentence = 1 visual scene).
+Rule 1: Scene 1 MUST be an irresistibly cute or funny hook under 14 words.
+Rule 2: The final scene loops back to Scene 1 with a playful callback.
+Rule 3: Keep language simple, joyful, and safe for all ages. NO scary, violent, or mature content.
+Rule 4: For each scene, searchQuery MUST be 3-5 specific keywords describing adorable or funny animal moments. DO NOT repeat identical queries.
+Rule 5: Return ONLY valid JSON matching this exact structure (no markdown, no explanation):
+{
+  "title": "Short catchy YouTube title #shorts",
+  "scenes": [
+    {
+      "sentence": "Exact caption sentence for this scene.",
+      "searchQuery": "Specific 4-6 word YouTube search query for cute/funny animal footage",
+      "cameraEffect": "zoom_in",
+      "sfxUrl": "sfx/pop.mp3"
+    }
+  ]
+}
+Allowed values for cameraEffect: "zoom_in", "zoom_out", "pan_left", "pan_right".
+Allowed values for sfxUrl: "sfx/whoosh.mp3", "sfx/pop.mp3".
+`
+    : `
 You are an expert viral YouTube Shorts scriptwriter for a US Gaming/Entertainment channel.
 Based on this game topic and requirements:
 - Game: ${gameContext}
@@ -161,5 +199,7 @@ Allowed values for sfxUrl: "sfx/whoosh.mp3", "sfx/pop.mp3".
     title: parsed.title,
     fullText,
     rawScenes: parsed.scenes,
+    voiceover: parsedPrompt?.voiceover ?? 'on',
+    category,
   };
 }

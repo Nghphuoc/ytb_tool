@@ -15,6 +15,10 @@ export interface GeneratedScript {
   title: string;
   fullText: string;
   rawScenes: RawSceneScript[];
+  /** Whether to generate ElevenLabs voiceover for this video */
+  voiceover: 'on' | 'off';
+  /** Video category — drives BGM selection and prompt template */
+  category: 'gaming' | 'kids-pets';
 }
 
 const FALLBACK_TOPICS = [
@@ -69,15 +73,17 @@ export async function fetchRedditAndGenerateScriptGemini(
 
   if (parsedPrompt) {
     console.log(`🎯 [Step 1] Sử dụng prompt theo format chuẩn:`);
-    console.log(`   🎮 Game: ${parsedPrompt.game}`);
+    console.log(`   🎮 Game/Chủ đề: ${parsedPrompt.game}`);
     console.log(`   🔍 Chi tiết: ${parsedPrompt.detail || '(Tự động sáng tạo chi tiết hot nhất)'}`);
     console.log(`   🎭 Phong cách: ${parsedPrompt.tone}`);
+    console.log(`   🔉 Voiceover: ${parsedPrompt.voiceover.toUpperCase()}`);
+    console.log(`   🏷️  Category: ${parsedPrompt.category}`);
     gameContext = parsedPrompt.game;
     toneContext = parsedPrompt.tone;
     postTitle = parsedPrompt.detail
       ? `${parsedPrompt.game}: ${parsedPrompt.detail}`
       : `${parsedPrompt.game} Insane Secret Detail`;
-    postText = `Game: ${parsedPrompt.game}. Detail/Secret: ${parsedPrompt.detail || 'Hidden lore and insane gameplay mechanics'}. Tone: ${parsedPrompt.tone}. Make each scene describe clear, specific action gameplay footage.`;
+    postText = `Game/Topic: ${parsedPrompt.game}. Detail/Secret: ${parsedPrompt.detail || 'Hidden lore and insane gameplay mechanics'}. Tone: ${parsedPrompt.tone}. Make each scene describe clear, specific action gameplay footage.`;
   } else {
     console.log(`🔍 [Step 1] Đang lấy dữ liệu từ r/${subreddit}...`);
     try {
@@ -132,14 +138,37 @@ export async function fetchRedditAndGenerateScriptGemini(
   const modelsToTry = Array.from(new Set([modelName, 'gemini-3.5-flash-lite']));
   const currentModel = modelsToTry[0];
 
-  const prompt = `
+  const category = parsedPrompt?.category ?? 'gaming';
+  const isKidsPets = category === 'kids-pets';
+
+  // ============================================================
+  // PROMPT TEMPLATES: Gaming vs. Kids/Pets
+  // ============================================================
+  const prompt = isKidsPets
+    ? `
+You are an expert viral YouTube Shorts scriptwriter for a Kids & Pets entertainment channel.
+Create a fun, wholesome, and hilarious short video script based on:
+- Subject / Character: ${gameContext}
+- Story / Moment: ${postText}
+- Tone / Style: ${toneContext}
+
+Write a fast-paced, cheerful 35 to 45-second script (around 100-200 words total).
+Break the script into 6 to 8 short, punchy sentences (each sentence = 1 visual scene).
+Rule 1: Scene 1 MUST be an irresistibly cute or funny hook under 14 words (e.g. "Wait until you see what this cat does next!").
+Rule 2: The final scene loops back to Scene 1 with a playful callback.
+Rule 3: Keep language simple, joyful, and safe for all ages. NO scary, violent, or mature content.
+Rule 4: For each scene, searchQuery MUST be 3-5 specific keywords describing adorable or funny animal moments (e.g. "${gameContext} funny moment", "cute ${gameContext} compilation", "${gameContext} fail funny"). DO NOT repeat identical queries.
+Rule 5: Camera effects should be gentle — prefer zoom_in for cute close-ups, pan_left/pan_right for playful movement.
+Rule 6: SFX should be upbeat — prefer pop.mp3 for happy moments.
+`
+    : `
 You are an expert viral YouTube Shorts scriptwriter for a US Gaming/Entertainment channel.
 Based on this game topic and requirements:
 - Game: ${gameContext}
 - Story / Secret: ${postText}
 - Tone / Style: ${toneContext}
 
-Write a fast-paced, highly engaging 35 to 45-second script (around 95-115 words total).
+Write a fast-paced, highly engaging 35 to 45-second script (around 100-200 words total).
 Break the script down into 6 to 8 short, punchy sentences (each sentence is 1 visual scene).
 Rule 1: Scene 1 MUST be a shocking hook question or statement under 14 words.
 Rule 2: The final scene must loop smoothly back to Scene 1.
@@ -234,5 +263,7 @@ Rule 4: For each scene, searchQuery MUST be 3-5 distinct keywords describing spe
     title: parsed.title,
     fullText,
     rawScenes: parsed.scenes,
+    voiceover: parsedPrompt?.voiceover ?? 'on',
+    category,
   };
 }

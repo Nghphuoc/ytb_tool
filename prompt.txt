@@ -1,19 +1,35 @@
 # ==============================================================================
-# 🎬 HƯỚNG DẪN NHẬP PROMPT TẠO YOUTUBE SHORTS (Format Chuẩn)
+# 🎬 HƯỚNG DẪN NHẬP PROMPT TẠO YOUTUBE SHORTS (Format Chuẩn Mở Rộng v2)
 #
-# Cú pháp chuẩn (ngăn cách bằng dấu gạch đứng | ):
-# [Tên Game] | [Chi tiết / Bí mật chính] | [Phong cách video]
+# Cú pháp chuẩn (5 trường, ngăn cách bằng | ):
+#   [Chủ đề / Nhân vật] | [Chi tiết / Kịch bản] | [Phong cách] | [voiceover] | [category]
 #
-# Ví dụ:
-# GTA 5 | Cảnh sát rút súng lục dự phòng khi bị bắn rơi vũ khí | Hồi hộp, kịch tính
-# Red Dead Redemption 2 | Opossum giả chết khi người chơi tới gần và bỏ chạy | Bí ẩn, cuốn hút
-# Elden Ring | Margit ném dao tức thì khi phát hiện người chơi uống máu | Hài hước, gay cấn
-# Cyberpunk 2077 | Khẩu súng Skippy biết nói chuyện và tự ngắm bắn kẻ thù | Viral, thú vị
+# ┌─────────────┬──────────────────────────────────────────┐
+# │  Trường     │  Giá trị                                 │
+# ├─────────────┼──────────────────────────────────────────┤
+# │ voiceover   │  on  → có giọng đọc ElevenLabs           │
+# │             │  off → chỉ caption + BGM (tiết kiệm API) │
+# ├─────────────┼──────────────────────────────────────────┤
+# │ category    │  gaming    → BGM hồi hộp, palette đậm   │
+# │             │  kids-pets → BGM vui tươi, palette pastel│
+# └─────────────┴──────────────────────────────────────────┘
+#
+# ─── VÍ DỤ GAMING (có voiceover) ──────────────────────────────────────────────
+# GTA 5 | Cảnh sát rút súng lục dự phòng khi bị bắn rơi vũ khí | Hồi hộp, kịch tính | on | gaming
+# Elden Ring | Margit ném dao tức thì khi phát hiện người chơi uống máu | Hài hước, gay cấn | on | gaming
+# Cyberpunk 2077 | Khẩu súng Skippy biết nói chuyện và tự ngắm bắn kẻ thù | Viral, thú vị | on | gaming
+#
+# ─── VÍ DỤ KIDS / THÚ CƯNG (tắt voiceover → caption-only) ────────────────────
+# Funny Cats | Mèo bị ngã khỏi ghế rồi giả vờ không có chuyện | Hài hước, dễ thương | off | kids-pets
+# Golden Retriever | Chó tự lấy đồ chơi và mang cho em bé | Cute, heartwarming | off | kids-pets
+# Hamster | Chuột hamster tự xây mê cung từ que kem | Dễ thương, hài hước | off | kids-pets
+#
+# ─── TƯƠNG THÍCH NGƯỢC (3 trường cũ vẫn hoạt động) ───────────────────────────
 # Black Myth Wukong | Kỹ năng biến hình và đòn đánh gậy như ý bất ngờ | Mãn nhãn, hào hùng
 #
 # Ghi chú:
-# - Các dòng bắt đầu bằng dấu # là chú thích và sẽ được bỏ qua.
-# - Dòng chữ bên dưới cùng (không có #) sẽ là prompt được tự động nạp vào video!
+# - Dòng bắt đầu bằng # là chú thích và sẽ được bỏ qua.
+# - Dòng CUỐI CÙNG không có # sẽ là prompt được tự động nạp!
 # ==============================================================================
 
-Cyberpunk 2077 | Khẩu súng Skippy biết nói chuyện và tự động ngắm bắn kẻ thù | Hài hước, thú vị
+Golden Retriever | Chó tự lấy đồ chơi và mang cho em bé | Cute, anime | on | kids-pets

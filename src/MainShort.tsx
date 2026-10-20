@@ -272,6 +272,7 @@ const DynamicCaptions: React.FC<DynamicCaptionsProps> = ({
 
 export const MainShort: React.FC<ShortVideoProps> = ({
   voiceoverUrl,
+  voiceoverEnabled = true,
   bgmUrl,
   bgmVolume,
   highlightColor,
@@ -285,7 +286,7 @@ export const MainShort: React.FC<ShortVideoProps> = ({
   const progressPercent = durationInFrames > 0 ? (frame / durationInFrames) * 100 : 0;
 
   return (
-    <AbsoluteFill style={STYLES.container}>
+    <AbsoluteFill style={STYLES.container} durationInFrames={278}>
       {/* 1. FULL-SCREEN ACTION VIDEO MONTAGE (100% diện tích màn hình) */}
       <div style={STYLES.fullScreenMedia}>
         {scenes.map((scene) => {
@@ -324,7 +325,7 @@ export const MainShort: React.FC<ShortVideoProps> = ({
       <div style={STYLES.progressBar(progressPercent, highlightColor)} />
 
       {/* 5. AUDIO SYSTEM (VOICEOVER + BGM) */}
-      {voiceoverUrl && <Audio src={staticFile(voiceoverUrl)} volume={1.0} />}
+      {voiceoverEnabled && voiceoverUrl && <Audio src={staticFile(voiceoverUrl)} volume={1.0} />}
       {bgmUrl && <Audio src={staticFile(bgmUrl)} volume={bgmVolume} loop />}
     </AbsoluteFill>
   );

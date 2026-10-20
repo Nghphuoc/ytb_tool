@@ -1,28 +1,29 @@
 {
-  "totalDurationInSeconds": 26.08,
+  "totalDurationInSeconds": 29.56,
   "voiceoverUrl": "audio/voiceover.mp3",
+  "voiceoverEnabled": true,
   "backgroundVideoUrl": null,
   "backgroundVideoStartFrom": 0,
   "bgmUrl": "audio/bgm_suspense.mp3",
-  "bgmVolume": 0.097,
-  "highlightColor": "#00FF66",
-  "captionTiltAngle": -0.03,
+  "bgmVolume": 0.167,
+  "highlightColor": "#FFCF56",
+  "captionTiltAngle": -0.09,
   "scenes": [
     {
       "id": "scene-1",
       "mediaUrl": "scenes/scene_1.mp4",
       "mediaType": "video",
       "startTime": 0,
-      "endTime": 4.795,
+      "endTime": 4.423,
       "cameraEffect": "zoom_in",
-      "sfxUrl": "sfx/whoosh.mp3"
+      "sfxUrl": "sfx/pop.mp3"
     },
     {
       "id": "scene-2",
       "mediaUrl": "scenes/scene_2.mp4",
       "mediaType": "video",
-      "startTime": 5.306,
-      "endTime": 9.183,
+      "startTime": 5.12,
+      "endTime": 8.417,
       "cameraEffect": "pan_left",
       "sfxUrl": "sfx/pop.mp3"
     },
@@ -30,8 +31,8 @@
       "id": "scene-3",
       "mediaUrl": "scenes/scene_3.mp4",
       "mediaType": "video",
-      "startTime": 9.509,
-      "endTime": 12.62,
+      "startTime": 8.742,
+      "endTime": 12.19,
       "cameraEffect": "zoom_out",
       "sfxUrl": "sfx/whoosh.mp3"
     },
@@ -39,345 +40,434 @@
       "id": "scene-4",
       "mediaUrl": "scenes/scene_4.mp4",
       "mediaType": "video",
-      "startTime": 13.224,
-      "endTime": 17.438,
-      "cameraEffect": "pan_right",
+      "startTime": 12.434,
+      "endTime": 15.894,
+      "cameraEffect": "zoom_in",
       "sfxUrl": "sfx/pop.mp3"
     },
     {
       "id": "scene-5",
       "mediaUrl": "scenes/scene_5.mp4",
       "mediaType": "video",
-      "startTime": 17.682,
-      "endTime": 22.082,
-      "cameraEffect": "zoom_in",
-      "sfxUrl": "sfx/whoosh.mp3"
+      "startTime": 16.219,
+      "endTime": 19.795,
+      "cameraEffect": "pan_right",
+      "sfxUrl": "sfx/pop.mp3"
     },
     {
       "id": "scene-6",
       "mediaUrl": "scenes/scene_6.mp4",
       "mediaType": "video",
-      "startTime": 22.686,
-      "endTime": 26.08,
-      "cameraEffect": "zoom_out",
+      "startTime": 20.306,
+      "endTime": 25.042,
+      "cameraEffect": "zoom_in",
       "sfxUrl": "sfx/pop.mp3"
+    },
+    {
+      "id": "scene-7",
+      "mediaUrl": "scenes/scene_7.mp4",
+      "mediaType": "video",
+      "startTime": 25.426,
+      "endTime": 29.56,
+      "cameraEffect": "zoom_out",
+      "sfxUrl": "sfx/whoosh.mp3"
     }
   ],
   "words": [
     {
-      "word": "Did",
+      "word": "Watch",
       "start": 0,
-      "end": 0.197
+      "end": 0.383
     },
     {
-      "word": "you",
-      "start": 0.244,
-      "end": 0.313
+      "word": "this",
+      "start": 0.441,
+      "end": 0.615
     },
     {
-      "word": "know",
-      "start": 0.36,
-      "end": 0.511
+      "word": "smart",
+      "start": 0.662,
+      "end": 1.033
     },
     {
-      "word": "Cyberpunk",
-      "start": 0.592,
-      "end": 1.219
+      "word": "golden",
+      "start": 1.115,
+      "end": 1.509
     },
     {
-      "word": "2077",
-      "start": 1.289,
-      "end": 2.241
+      "word": "retriever",
+      "start": 1.567,
+      "end": 2.055
     },
     {
-      "word": "hides",
-      "start": 2.357,
-      "end": 2.694
-    },
-    {
-      "word": "a",
-      "start": 2.74,
-      "end": 2.763
-    },
-    {
-      "word": "gun",
-      "start": 2.879,
-      "end": 3.135
-    },
-    {
-      "word": "that",
-      "start": 3.193,
-      "end": 3.355
-    },
-    {
-      "word": "literally",
-      "start": 3.471,
-      "end": 3.901
-    },
-    {
-      "word": "talks",
-      "start": 3.959,
-      "end": 4.284
-    },
-    {
-      "word": "to",
-      "start": 4.319,
-      "end": 4.389
-    },
-    {
-      "word": "you?",
-      "start": 4.47,
-      "end": 4.795
-    },
-    {
-      "word": "Meet",
-      "start": 5.306,
-      "end": 5.55
-    },
-    {
-      "word": "Skippy,",
-      "start": 5.619,
-      "end": 6.2
+      "word": "become",
+      "start": 2.113,
+      "end": 2.403
     },
     {
       "word": "the",
-      "start": 6.374,
-      "end": 6.478
+      "start": 2.438,
+      "end": 2.508
     },
     {
-      "word": "smartest",
-      "start": 6.548,
-      "end": 7.036
+      "word": "best",
+      "start": 2.589,
+      "end": 2.891
+    },
+    {
+      "word": "babysitter",
+      "start": 2.972,
+      "end": 3.657
+    },
+    {
+      "word": "ever!",
+      "start": 3.773,
+      "end": 4.423
+    },
+    {
+      "word": "The",
+      "start": 5.12,
+      "end": 5.248
+    },
+    {
+      "word": "tiny",
+      "start": 5.306,
+      "end": 5.619
+    },
+    {
+      "word": "baby",
+      "start": 5.677,
+      "end": 5.944
+    },
+    {
+      "word": "starts",
+      "start": 6.002,
+      "end": 6.304
+    },
+    {
+      "word": "to",
+      "start": 6.351,
+      "end": 6.42
+    },
+    {
+      "word": "cry",
+      "start": 6.502,
+      "end": 6.885
     },
     {
       "word": "and",
-      "start": 7.082,
-      "end": 7.163
+      "start": 6.966,
+      "end": 7.059
     },
     {
-      "word": "sassiest",
-      "start": 7.256,
+      "word": "needs",
+      "start": 7.105,
+      "end": 7.326
+    },
+    {
+      "word": "a",
+      "start": 7.372,
+      "end": 7.396
+    },
+    {
+      "word": "special",
+      "start": 7.442,
       "end": 7.814
     },
     {
-      "word": "pistol",
-      "start": 7.872,
-      "end": 8.208
+      "word": "friend.",
+      "start": 7.895,
+      "end": 8.417
     },
     {
-      "word": "in",
-      "start": 8.278,
-      "end": 8.348
+      "word": "Quickly",
+      "start": 8.742,
+      "end": 9.125
     },
     {
-      "word": "Night",
-      "start": 8.429,
-      "end": 8.638
+      "word": "the",
+      "start": 9.183,
+      "end": 9.253
     },
     {
-      "word": "City.",
-      "start": 8.684,
-      "end": 9.183
+      "word": "fluffy",
+      "start": 9.3,
+      "end": 9.613
     },
     {
-      "word": "He",
-      "start": 9.509,
-      "end": 9.625
+      "word": "dog",
+      "start": 9.683,
+      "end": 9.973
     },
     {
-      "word": "even",
-      "start": 9.671,
-      "end": 9.88
+      "word": "runs",
+      "start": 10.042,
+      "end": 10.286
     },
     {
-      "word": "auto-aims",
-      "start": 9.938,
-      "end": 10.449
-    },
-    {
-      "word": "at",
-      "start": 10.495,
+      "word": "over",
+      "start": 10.356,
       "end": 10.565
     },
     {
-      "word": "enemies",
+      "word": "to",
       "start": 10.623,
-      "end": 10.995
+      "end": 10.681
     },
     {
-      "word": "while",
-      "start": 11.053,
-      "end": 11.32
+      "word": "the",
+      "start": 10.739,
+      "end": 10.809
     },
     {
-      "word": "you",
-      "start": 11.389,
-      "end": 11.494
+      "word": "toy",
+      "start": 10.855,
+      "end": 11.076
+    },
+    {
+      "word": "box",
+      "start": 11.134,
+      "end": 11.412
+    },
+    {
+      "word": "with",
+      "start": 11.47,
+      "end": 11.61
+    },
+    {
+      "word": "joy.",
+      "start": 11.679,
+      "end": 12.19
+    },
+    {
+      "word": "He",
+      "start": 12.434,
+      "end": 12.55
+    },
+    {
+      "word": "gently",
+      "start": 12.631,
+      "end": 12.98
+    },
+    {
+      "word": "selects",
+      "start": 13.038,
+      "end": 13.421
+    },
+    {
+      "word": "his",
+      "start": 13.456,
+      "end": 13.56
+    },
+    {
+      "word": "favorite",
+      "start": 13.63,
+      "end": 14.048
+    },
+    {
+      "word": "squeaky",
+      "start": 14.071,
+      "end": 14.454
+    },
+    {
+      "word": "bear",
+      "start": 14.524,
+      "end": 14.779
     },
     {
       "word": "just",
-      "start": 11.61,
-      "end": 11.784
+      "start": 14.86,
+      "end": 15.081
     },
     {
-      "word": "stand",
-      "start": 11.831,
-      "end": 12.167
+      "word": "for",
+      "start": 15.139,
+      "end": 15.244
     },
     {
-      "word": "there.",
-      "start": 12.237,
-      "end": 12.62
+      "word": "the",
+      "start": 15.278,
+      "end": 15.348
     },
     {
-      "word": "You",
-      "start": 13.224,
-      "end": 13.363
+      "word": "baby.",
+      "start": 15.406,
+      "end": 15.894
     },
     {
-      "word": "can",
-      "start": 13.433,
-      "end": 13.549
+      "word": "With",
+      "start": 16.219,
+      "end": 16.381
     },
     {
-      "word": "choose",
-      "start": 13.595,
-      "end": 13.874
+      "word": "a",
+      "start": 16.416,
+      "end": 16.439
     },
     {
-      "word": "between",
-      "start": 13.92,
-      "end": 14.292
+      "word": "happy",
+      "start": 16.509,
+      "end": 16.764
     },
     {
-      "word": "stone-cold",
-      "start": 14.373,
-      "end": 15.186
+      "word": "tail",
+      "start": 16.823,
+      "end": 17.136
     },
     {
-      "word": "killer",
-      "start": 15.256,
-      "end": 15.581
-    },
-    {
-      "word": "mode",
-      "start": 15.639,
-      "end": 15.987
-    },
-    {
-      "word": "or",
-      "start": 16.045,
-      "end": 16.184
-    },
-    {
-      "word": "pacifist",
-      "start": 16.277,
-      "end": 16.869
-    },
-    {
-      "word": "mode.",
-      "start": 16.939,
-      "end": 17.438
-    },
-    {
-      "word": "Warning",
-      "start": 17.682,
-      "end": 18.065
-    },
-    {
-      "word": "though,",
-      "start": 18.112,
-      "end": 18.564
+      "word": "wag",
+      "start": 17.194,
+      "end": 17.542
     },
     {
       "word": "he",
-      "start": 18.739,
-      "end": 18.831
+      "start": 17.6,
+      "end": 17.658
     },
     {
-      "word": "will",
-      "start": 18.901,
-      "end": 19.064
+      "word": "drops",
+      "start": 17.717,
+      "end": 18.03
     },
     {
-      "word": "judge",
-      "start": 19.133,
-      "end": 19.458
-    },
-    {
-      "word": "your",
-      "start": 19.493,
-      "end": 19.644
-    },
-    {
-      "word": "terrible",
-      "start": 19.702,
-      "end": 20.12
-    },
-    {
-      "word": "shooting",
-      "start": 20.155,
-      "end": 20.468
-    },
-    {
-      "word": "skills",
-      "start": 20.526,
-      "end": 20.991
-    },
-    {
-      "word": "constantly.",
-      "start": 21.142,
-      "end": 22.082
-    },
-    {
-      "word": "So",
-      "start": 22.686,
-      "end": 22.86
-    },
-    {
-      "word": "go",
-      "start": 22.918,
-      "end": 23.057
-    },
-    {
-      "word": "find",
-      "start": 23.15,
-      "end": 23.452
-    },
-    {
-      "word": "him",
-      "start": 23.499,
-      "end": 23.603
+      "word": "it",
+      "start": 18.076,
+      "end": 18.146
     },
     {
       "word": "right",
-      "start": 23.661,
-      "end": 23.859
+      "start": 18.216,
+      "end": 18.471
     },
     {
-      "word": "now,",
-      "start": 23.917,
-      "end": 24.218
+      "word": "in",
+      "start": 18.529,
+      "end": 18.634
     },
     {
-      "word": "because",
-      "start": 24.253,
-      "end": 24.555
+      "word": "tiny",
+      "start": 18.715,
+      "end": 19.11
     },
     {
-      "word": "did",
-      "start": 24.602,
-      "end": 24.729
+      "word": "hands.",
+      "start": 19.179,
+      "end": 19.795
+    },
+    {
+      "word": "Instant",
+      "start": 20.306,
+      "end": 20.77
+    },
+    {
+      "word": "smiles",
+      "start": 20.816,
+      "end": 21.304
+    },
+    {
+      "word": "appear",
+      "start": 21.35,
+      "end": 21.78
+    },
+    {
+      "word": "and",
+      "start": 22.024,
+      "end": 22.175
+    },
+    {
+      "word": "the",
+      "start": 22.221,
+      "end": 22.291
+    },
+    {
+      "word": "adorable",
+      "start": 22.349,
+      "end": 22.895
+    },
+    {
+      "word": "duo",
+      "start": 22.929,
+      "end": 23.278
+    },
+    {
+      "word": "start",
+      "start": 23.394,
+      "end": 23.672
+    },
+    {
+      "word": "playing",
+      "start": 23.719,
+      "end": 24.009
+    },
+    {
+      "word": "together",
+      "start": 24.056,
+      "end": 24.392
+    },
+    {
+      "word": "happily.",
+      "start": 24.45,
+      "end": 25.042
+    },
+    {
+      "word": "That",
+      "start": 25.426,
+      "end": 25.658
+    },
+    {
+      "word": "is",
+      "start": 25.704,
+      "end": 25.785
+    },
+    {
+      "word": "why",
+      "start": 25.832,
+      "end": 26.041
     },
     {
       "word": "you",
-      "start": 24.787,
-      "end": 24.869
+      "start": 26.111,
+      "end": 26.227
     },
     {
-      "word": "know...",
-      "start": 24.927,
-      "end": 25.681
+      "word": "always",
+      "start": 26.343,
+      "end": 26.737
+    },
+    {
+      "word": "need",
+      "start": 26.796,
+      "end": 26.981
+    },
+    {
+      "word": "a",
+      "start": 27.016,
+      "end": 27.039
+    },
+    {
+      "word": "golden",
+      "start": 27.097,
+      "end": 27.457
+    },
+    {
+      "word": "retriever",
+      "start": 27.515,
+      "end": 27.991
+    },
+    {
+      "word": "by",
+      "start": 28.061,
+      "end": 28.212
+    },
+    {
+      "word": "your",
+      "start": 28.282,
+      "end": 28.433
+    },
+    {
+      "word": "side!",
+      "start": 28.479,
+      "end": 29.164
     }
   ]
 }
