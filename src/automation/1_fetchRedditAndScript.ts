@@ -6,7 +6,7 @@ dotenv.config();
 
 export interface RawSceneScript {
   sentence: string;
-  searchQuery: string;
+  visualPrompt: string;
   cameraEffect: CameraEffect;
   sfxUrl: string;
 }
@@ -132,14 +132,15 @@ Break the script into 6 to 8 short, punchy sentences (each sentence = 1 visual s
 Rule 1: Scene 1 MUST be an irresistibly cute or funny hook under 14 words.
 Rule 2: The final scene loops back to Scene 1 with a playful callback.
 Rule 3: Keep language simple, joyful, and safe for all ages. NO scary, violent, or mature content.
-Rule 4: For each scene, searchQuery MUST be 3-5 specific keywords describing adorable or funny animal moments. DO NOT repeat identical queries.
-Rule 5: Return ONLY valid JSON matching this exact structure (no markdown, no explanation):
+Rule 4: For each scene, visualPrompt MUST describe a distinct, specific visual moment for an AI video generator, including the subject, action, environment, and camera framing. Do not describe searching for existing footage.
+Rule 5: Do not include written text, subtitles, logos, or watermarks in visualPrompt.
+Rule 6: Return ONLY valid JSON matching this exact structure (no markdown, no explanation):
 {
   "title": "Short catchy YouTube title #shorts",
   "scenes": [
     {
       "sentence": "Exact caption sentence for this scene.",
-      "searchQuery": "Specific 4-6 word YouTube search query for cute/funny animal footage",
+      "visualPrompt": "Detailed visual prompt for generating this scene as a new video",
       "cameraEffect": "zoom_in",
       "sfxUrl": "sfx/pop.mp3"
     }
@@ -160,14 +161,15 @@ Break the script down into 6 to 8 short, punchy sentences (each sentence is 1 vi
 Rule 1: Scene 1 MUST be a shocking hook question or statement under 14 words.
 Rule 2: The final scene must loop smoothly back to Scene 1.
 Rule 3: Keep sentences concise and conversational in American English.
-Rule 4: For each scene, searchQuery MUST be 3-5 distinct keywords describing specific, dynamic in-game action (e.g. "${gameContext} combat action", "${gameContext} secret scene", "${gameContext} boss fight"). DO NOT use generic or identical queries across scenes.
-Rule 5: Return ONLY valid JSON matching this exact structure (no markdown, no explanation):
+Rule 4: For each scene, visualPrompt MUST describe a distinct, specific visual moment for an AI video generator, including the subject, action, environment, and camera framing. Do not describe searching for existing footage.
+Rule 5: Do not include written text, subtitles, logos, or watermarks in visualPrompt.
+Rule 6: Return ONLY valid JSON matching this exact structure (no markdown, no explanation):
 {
   "title": "Short catchy YouTube title #shorts",
   "scenes": [
     {
       "sentence": "Exact spoken sentence for this scene.",
-      "searchQuery": "Specific 4-6 word YouTube search query to find exact gameplay footage of this scene",
+      "visualPrompt": "Detailed visual prompt for generating this scene as a new video",
       "cameraEffect": "zoom_in",
       "sfxUrl": "sfx/whoosh.mp3"
     }

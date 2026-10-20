@@ -6,7 +6,7 @@ import type { ShortVideoProps } from '../types/types';
 import { fetchRedditAndGenerateScriptGemini } from './1_fechRedditAndScriptGemini';
 import { fetchRedditAndGenerateScript } from './1_fetchRedditAndScript';
 import { generateAudioAndSyncScenes } from './2_generateAudio';
-import { downloadSceneAssets } from './3_downloadAssets';
+import { generateSceneVideos } from './3_generateVideo';
 import { resolvePrompt } from './promptParser';
 
 dotenv.config();
@@ -81,19 +81,21 @@ function cleanupOldFiles(dir: string, maxDays = 7) {
 /**
  * Kiểm tra các biến môi trường cần thiết trước khi khởi chạy
  */
-function validatePreflight() {
+function validatePreflight(voiceoverOn: boolean) {
   const provider = (process.env.LLM_PROVIDER || 'gemini').toLowerCase();
   const missingKeys: string[] = [];
 
-  if (provider === 'gemini' && !process.env.GEMINI_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     missingKeys.push('GEMINI_API_KEY');
-  } else if (provider === 'claude' && !process.env.ANTHROPIC_API_KEY) {
+  }
+
+  if (provider === 'claude' && !process.env.ANTHROPIC_API_KEY) {
     missingKeys.push('ANTHROPIC_API_KEY');
   }
 
-  if (!process.env.ELEVENLABS_API_KEY) {
+  if (voiceoverOn && !process.env.ELEVENLABS_API_KEY) {
     missingKeys.push('ELEVENLABS_API_KEY');
-  } else if (!process.env.ELEVENLABS_API_KEY.startsWith('sk_')) {
+  } else if (voiceoverOn && !process.env.ELEVENLABS_API_KEY?.startsWith('sk_')) {
     console.error('\n❌ ELEVENLABS_API_KEY KHÔNG HỢP LỆ:');
     console.error('   Chuỗi hiện tại trong .env là "Key ID" (cf94d...), không phải Secret API Key.');
     console.error('   API Key của ElevenLabs bắt buộc phải bắt đầu bằng "sk_".');
@@ -115,10 +117,9 @@ async function runFullPipeline() {
   console.log('===========================================================');
 
   try {
-    validatePreflight();
-
     // Thu thập prompt (CLI parameter, Terminal trực tiếp hoặc file prompt.txt)
     const promptInfo = await resolvePrompt();
+    validatePreflight((promptInfo?.voiceover ?? 'on') === 'on');
 
     const dataDir = path.join(process.cwd(), 'data');
     const outDir = path.join(process.cwd(), 'out');
@@ -157,9 +158,9 @@ async function runFullPipeline() {
       }
     );
 
-    // 3. Tải tài nguyên video hành động (yt-dlp + FFmpeg)
-    await measureTime('Tải video minh họa từng Scene', () =>
-      downloadSceneAssets(scriptData.rawScenes)
+    // 3. Tạo video mới cho từng Scene bằng Gemini, không tải clip từ nền tảng khác
+    await measureTime('Tạo video AI cho từng Scene', () =>
+      generateSceneVideos(scriptData.title, scriptData.category, scriptData.rawScenes)
     );
 
     // 4. Kiểm tra tài nguyên âm thanh & Tự động chọn BGM theo category
@@ -210,11 +211,13 @@ async function runFullPipeline() {
         const sfxAvailable =
           scene.sfxUrl && fs.existsSync(path.join(process.cwd(), 'public', scene.sfxUrl));
         const sceneFile = `scenes/scene_${index + 1}.mp4`;
-        const exists = fs.existsSync(path.join(process.cwd(), 'public', sceneFile));
+        if (!fs.existsSync(path.join(process.cwd(), 'public', sceneFile))) {
+          throw new Error(`Generated video is missing for scene ${index + 1}: ${sceneFile}`);
+        }
 
         return {
           ...scene,
-          mediaUrl: exists ? sceneFile : scene.mediaUrl,
+          mediaUrl: sceneFile,
           mediaType: 'video' as const,
           sfxUrl: sfxAvailable ? scene.sfxUrl : undefined,
         };

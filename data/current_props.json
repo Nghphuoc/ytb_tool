@@ -1,29 +1,29 @@
 {
-  "totalDurationInSeconds": 29.56,
+  "totalDurationInSeconds": 32.44,
   "voiceoverUrl": "audio/voiceover.mp3",
   "voiceoverEnabled": true,
   "backgroundVideoUrl": null,
   "backgroundVideoStartFrom": 0,
   "bgmUrl": "audio/bgm_suspense.mp3",
-  "bgmVolume": 0.167,
-  "highlightColor": "#FFCF56",
-  "captionTiltAngle": -0.09,
+  "bgmVolume": 0.091,
+  "highlightColor": "#00FF66",
+  "captionTiltAngle": -1.01,
   "scenes": [
     {
       "id": "scene-1",
       "mediaUrl": "scenes/scene_1.mp4",
       "mediaType": "video",
       "startTime": 0,
-      "endTime": 4.423,
+      "endTime": 3.042,
       "cameraEffect": "zoom_in",
-      "sfxUrl": "sfx/pop.mp3"
+      "sfxUrl": "sfx/whoosh.mp3"
     },
     {
       "id": "scene-2",
       "mediaUrl": "scenes/scene_2.mp4",
       "mediaType": "video",
-      "startTime": 5.12,
-      "endTime": 8.417,
+      "startTime": 3.646,
+      "endTime": 8.231,
       "cameraEffect": "pan_left",
       "sfxUrl": "sfx/pop.mp3"
     },
@@ -31,8 +31,8 @@
       "id": "scene-3",
       "mediaUrl": "scenes/scene_3.mp4",
       "mediaType": "video",
-      "startTime": 8.742,
-      "endTime": 12.19,
+      "startTime": 8.615,
+      "endTime": 13.816,
       "cameraEffect": "zoom_out",
       "sfxUrl": "sfx/whoosh.mp3"
     },
@@ -40,434 +40,409 @@
       "id": "scene-4",
       "mediaUrl": "scenes/scene_4.mp4",
       "mediaType": "video",
-      "startTime": 12.434,
-      "endTime": 15.894,
-      "cameraEffect": "zoom_in",
+      "startTime": 14.513,
+      "endTime": 18.936,
+      "cameraEffect": "pan_right",
       "sfxUrl": "sfx/pop.mp3"
     },
     {
       "id": "scene-5",
       "mediaUrl": "scenes/scene_5.mp4",
       "mediaType": "video",
-      "startTime": 16.219,
-      "endTime": 19.795,
-      "cameraEffect": "pan_right",
-      "sfxUrl": "sfx/pop.mp3"
+      "startTime": 19.447,
+      "endTime": 23.302,
+      "cameraEffect": "zoom_in",
+      "sfxUrl": "sfx/whoosh.mp3"
     },
     {
       "id": "scene-6",
       "mediaUrl": "scenes/scene_6.mp4",
       "mediaType": "video",
-      "startTime": 20.306,
-      "endTime": 25.042,
-      "cameraEffect": "zoom_in",
+      "startTime": 23.998,
+      "endTime": 28.642,
+      "cameraEffect": "zoom_out",
       "sfxUrl": "sfx/pop.mp3"
     },
     {
       "id": "scene-7",
       "mediaUrl": "scenes/scene_7.mp4",
       "mediaType": "video",
-      "startTime": 25.426,
-      "endTime": 29.56,
-      "cameraEffect": "zoom_out",
+      "startTime": 29.455,
+      "endTime": 32.44,
+      "cameraEffect": "pan_left",
       "sfxUrl": "sfx/whoosh.mp3"
     }
   ],
   "words": [
     {
-      "word": "Watch",
+      "word": "Have",
       "start": 0,
-      "end": 0.383
-    },
-    {
-      "word": "this",
-      "start": 0.441,
-      "end": 0.615
-    },
-    {
-      "word": "smart",
-      "start": 0.662,
-      "end": 1.033
-    },
-    {
-      "word": "golden",
-      "start": 1.115,
-      "end": 1.509
-    },
-    {
-      "word": "retriever",
-      "start": 1.567,
-      "end": 2.055
-    },
-    {
-      "word": "become",
-      "start": 2.113,
-      "end": 2.403
-    },
-    {
-      "word": "the",
-      "start": 2.438,
-      "end": 2.508
-    },
-    {
-      "word": "best",
-      "start": 2.589,
-      "end": 2.891
-    },
-    {
-      "word": "babysitter",
-      "start": 2.972,
-      "end": 3.657
-    },
-    {
-      "word": "ever!",
-      "start": 3.773,
-      "end": 4.423
-    },
-    {
-      "word": "The",
-      "start": 5.12,
-      "end": 5.248
-    },
-    {
-      "word": "tiny",
-      "start": 5.306,
-      "end": 5.619
-    },
-    {
-      "word": "baby",
-      "start": 5.677,
-      "end": 5.944
-    },
-    {
-      "word": "starts",
-      "start": 6.002,
-      "end": 6.304
-    },
-    {
-      "word": "to",
-      "start": 6.351,
-      "end": 6.42
-    },
-    {
-      "word": "cry",
-      "start": 6.502,
-      "end": 6.885
-    },
-    {
-      "word": "and",
-      "start": 6.966,
-      "end": 7.059
-    },
-    {
-      "word": "needs",
-      "start": 7.105,
-      "end": 7.326
-    },
-    {
-      "word": "a",
-      "start": 7.372,
-      "end": 7.396
-    },
-    {
-      "word": "special",
-      "start": 7.442,
-      "end": 7.814
-    },
-    {
-      "word": "friend.",
-      "start": 7.895,
-      "end": 8.417
-    },
-    {
-      "word": "Quickly",
-      "start": 8.742,
-      "end": 9.125
-    },
-    {
-      "word": "the",
-      "start": 9.183,
-      "end": 9.253
-    },
-    {
-      "word": "fluffy",
-      "start": 9.3,
-      "end": 9.613
-    },
-    {
-      "word": "dog",
-      "start": 9.683,
-      "end": 9.973
-    },
-    {
-      "word": "runs",
-      "start": 10.042,
-      "end": 10.286
-    },
-    {
-      "word": "over",
-      "start": 10.356,
-      "end": 10.565
-    },
-    {
-      "word": "to",
-      "start": 10.623,
-      "end": 10.681
-    },
-    {
-      "word": "the",
-      "start": 10.739,
-      "end": 10.809
-    },
-    {
-      "word": "toy",
-      "start": 10.855,
-      "end": 11.076
-    },
-    {
-      "word": "box",
-      "start": 11.134,
-      "end": 11.412
-    },
-    {
-      "word": "with",
-      "start": 11.47,
-      "end": 11.61
-    },
-    {
-      "word": "joy.",
-      "start": 11.679,
-      "end": 12.19
-    },
-    {
-      "word": "He",
-      "start": 12.434,
-      "end": 12.55
-    },
-    {
-      "word": "gently",
-      "start": 12.631,
-      "end": 12.98
-    },
-    {
-      "word": "selects",
-      "start": 13.038,
-      "end": 13.421
-    },
-    {
-      "word": "his",
-      "start": 13.456,
-      "end": 13.56
-    },
-    {
-      "word": "favorite",
-      "start": 13.63,
-      "end": 14.048
-    },
-    {
-      "word": "squeaky",
-      "start": 14.071,
-      "end": 14.454
-    },
-    {
-      "word": "bear",
-      "start": 14.524,
-      "end": 14.779
-    },
-    {
-      "word": "just",
-      "start": 14.86,
-      "end": 15.081
-    },
-    {
-      "word": "for",
-      "start": 15.139,
-      "end": 15.244
-    },
-    {
-      "word": "the",
-      "start": 15.278,
-      "end": 15.348
-    },
-    {
-      "word": "baby.",
-      "start": 15.406,
-      "end": 15.894
-    },
-    {
-      "word": "With",
-      "start": 16.219,
-      "end": 16.381
-    },
-    {
-      "word": "a",
-      "start": 16.416,
-      "end": 16.439
-    },
-    {
-      "word": "happy",
-      "start": 16.509,
-      "end": 16.764
-    },
-    {
-      "word": "tail",
-      "start": 16.823,
-      "end": 17.136
-    },
-    {
-      "word": "wag",
-      "start": 17.194,
-      "end": 17.542
-    },
-    {
-      "word": "he",
-      "start": 17.6,
-      "end": 17.658
-    },
-    {
-      "word": "drops",
-      "start": 17.717,
-      "end": 18.03
-    },
-    {
-      "word": "it",
-      "start": 18.076,
-      "end": 18.146
-    },
-    {
-      "word": "right",
-      "start": 18.216,
-      "end": 18.471
-    },
-    {
-      "word": "in",
-      "start": 18.529,
-      "end": 18.634
-    },
-    {
-      "word": "tiny",
-      "start": 18.715,
-      "end": 19.11
-    },
-    {
-      "word": "hands.",
-      "start": 19.179,
-      "end": 19.795
-    },
-    {
-      "word": "Instant",
-      "start": 20.306,
-      "end": 20.77
-    },
-    {
-      "word": "smiles",
-      "start": 20.816,
-      "end": 21.304
-    },
-    {
-      "word": "appear",
-      "start": 21.35,
-      "end": 21.78
-    },
-    {
-      "word": "and",
-      "start": 22.024,
-      "end": 22.175
-    },
-    {
-      "word": "the",
-      "start": 22.221,
-      "end": 22.291
-    },
-    {
-      "word": "adorable",
-      "start": 22.349,
-      "end": 22.895
-    },
-    {
-      "word": "duo",
-      "start": 22.929,
-      "end": 23.278
-    },
-    {
-      "word": "start",
-      "start": 23.394,
-      "end": 23.672
-    },
-    {
-      "word": "playing",
-      "start": 23.719,
-      "end": 24.009
-    },
-    {
-      "word": "together",
-      "start": 24.056,
-      "end": 24.392
-    },
-    {
-      "word": "happily.",
-      "start": 24.45,
-      "end": 25.042
-    },
-    {
-      "word": "That",
-      "start": 25.426,
-      "end": 25.658
-    },
-    {
-      "word": "is",
-      "start": 25.704,
-      "end": 25.785
-    },
-    {
-      "word": "why",
-      "start": 25.832,
-      "end": 26.041
+      "end": 0.197
     },
     {
       "word": "you",
-      "start": 26.111,
-      "end": 26.227
+      "start": 0.221,
+      "end": 0.29
     },
     {
-      "word": "always",
-      "start": 26.343,
-      "end": 26.737
+      "word": "ever",
+      "start": 0.337,
+      "end": 0.476
     },
     {
-      "word": "need",
-      "start": 26.796,
-      "end": 26.981
+      "word": "seen",
+      "start": 0.534,
+      "end": 0.789
     },
     {
-      "word": "a",
-      "start": 27.016,
-      "end": 27.039
+      "word": "sneakers",
+      "start": 0.871,
+      "end": 1.358
     },
     {
-      "word": "golden",
-      "start": 27.097,
-      "end": 27.457
+      "word": "get",
+      "start": 1.405,
+      "end": 1.544
     },
     {
-      "word": "retriever",
-      "start": 27.515,
-      "end": 27.991
+      "word": "transformed",
+      "start": 1.579,
+      "end": 2.334
     },
     {
-      "word": "by",
-      "start": 28.061,
-      "end": 28.212
+      "word": "like",
+      "start": 2.403,
+      "end": 2.566
     },
     {
-      "word": "your",
-      "start": 28.282,
-      "end": 28.433
+      "word": "this?",
+      "start": 2.589,
+      "end": 3.042
     },
     {
-      "word": "side!",
-      "start": 28.479,
-      "end": 29.164
+      "word": "Watch",
+      "start": 3.646,
+      "end": 3.913
+    },
+    {
+      "word": "closely",
+      "start": 3.971,
+      "end": 4.528
+    },
+    {
+      "word": "as",
+      "start": 4.737,
+      "end": 4.911
+    },
+    {
+      "word": "vibrant",
+      "start": 5.027,
+      "end": 5.492
+    },
+    {
+      "word": "paint",
+      "start": 5.55,
+      "end": 5.863
+    },
+    {
+      "word": "floats",
+      "start": 5.933,
+      "end": 6.293
+    },
+    {
+      "word": "effortlessly",
+      "start": 6.374,
+      "end": 7.047
+    },
+    {
+      "word": "on",
+      "start": 7.117,
+      "end": 7.21
+    },
+    {
+      "word": "the",
+      "start": 7.245,
+      "end": 7.314
+    },
+    {
+      "word": "water",
+      "start": 7.361,
+      "end": 7.616
+    },
+    {
+      "word": "surface.",
+      "start": 7.663,
+      "end": 8.231
+    },
+    {
+      "word": "Slow",
+      "start": 8.615,
+      "end": 8.951
+    },
+    {
+      "word": "motion",
+      "start": 9.044,
+      "end": 9.451
+    },
+    {
+      "word": "captures",
+      "start": 9.532,
+      "end": 9.985
+    },
+    {
+      "word": "every",
+      "start": 10.066,
+      "end": 10.403
+    },
+    {
+      "word": "single",
+      "start": 10.473,
+      "end": 10.821
+    },
+    {
+      "word": "droplet",
+      "start": 10.856,
+      "end": 11.309
+    },
+    {
+      "word": "swirling",
+      "start": 11.367,
+      "end": 11.808
+    },
+    {
+      "word": "into",
+      "start": 11.854,
+      "end": 12.005
+    },
+    {
+      "word": "insane",
+      "start": 12.098,
+      "end": 12.713
+    },
+    {
+      "word": "custom",
+      "start": 12.783,
+      "end": 13.143
+    },
+    {
+      "word": "patterns.",
+      "start": 13.201,
+      "end": 13.816
+    },
+    {
+      "word": "Now",
+      "start": 14.513,
+      "end": 14.861
+    },
+    {
+      "word": "plunge",
+      "start": 15.012,
+      "end": 15.511
+    },
+    {
+      "word": "the",
+      "start": 15.558,
+      "end": 15.627
+    },
+    {
+      "word": "pristine",
+      "start": 15.674,
+      "end": 16.22
+    },
+    {
+      "word": "white",
+      "start": 16.266,
+      "end": 16.533
+    },
+    {
+      "word": "sneaker",
+      "start": 16.579,
+      "end": 17.044
+    },
+    {
+      "word": "right",
+      "start": 17.427,
+      "end": 17.706
+    },
+    {
+      "word": "into",
+      "start": 17.74,
+      "end": 17.891
+    },
+    {
+      "word": "the",
+      "start": 17.949,
+      "end": 18.019
+    },
+    {
+      "word": "liquid",
+      "start": 18.066,
+      "end": 18.356
+    },
+    {
+      "word": "center.",
+      "start": 18.402,
+      "end": 18.936
+    },
+    {
+      "word": "Look",
+      "start": 19.447,
+      "end": 19.633
+    },
+    {
+      "word": "at",
+      "start": 19.668,
+      "end": 19.726
+    },
+    {
+      "word": "how",
+      "start": 19.784,
+      "end": 19.923
+    },
+    {
+      "word": "the",
+      "start": 19.981,
+      "end": 20.051
+    },
+    {
+      "word": "film",
+      "start": 20.121,
+      "end": 20.48
+    },
+    {
+      "word": "wraps",
+      "start": 20.55,
+      "end": 20.875
+    },
+    {
+      "word": "around",
+      "start": 20.922,
+      "end": 21.212
+    },
+    {
+      "word": "the",
+      "start": 21.258,
+      "end": 21.328
+    },
+    {
+      "word": "leather",
+      "start": 21.386,
+      "end": 21.653
+    },
+    {
+      "word": "with",
+      "start": 21.699,
+      "end": 21.827
+    },
+    {
+      "word": "absolute",
+      "start": 21.897,
+      "end": 22.501
+    },
+    {
+      "word": "perfection.",
+      "start": 22.535,
+      "end": 23.302
+    },
+    {
+      "word": "Pull",
+      "start": 23.998,
+      "end": 24.219
+    },
+    {
+      "word": "it",
+      "start": 24.277,
+      "end": 24.347
+    },
+    {
+      "word": "out",
+      "start": 24.393,
+      "end": 24.544
+    },
+    {
+      "word": "slowly",
+      "start": 24.602,
+      "end": 25.113
+    },
+    {
+      "word": "to",
+      "start": 25.171,
+      "end": 25.24
+    },
+    {
+      "word": "witness",
+      "start": 25.31,
+      "end": 25.693
+    },
+    {
+      "word": "the",
+      "start": 25.74,
+      "end": 25.809
+    },
+    {
+      "word": "most",
+      "start": 25.867,
+      "end": 26.065
+    },
+    {
+      "word": "satisfying",
+      "start": 26.181,
+      "end": 27.005
+    },
+    {
+      "word": "custom",
+      "start": 27.075,
+      "end": 27.412
+    },
+    {
+      "word": "design",
+      "start": 27.481,
+      "end": 27.922
+    },
+    {
+      "word": "ever.",
+      "start": 28.039,
+      "end": 28.642
+    },
+    {
+      "word": "That",
+      "start": 29.455,
+      "end": 29.629
+    },
+    {
+      "word": "is",
+      "start": 29.676,
+      "end": 29.745
+    },
+    {
+      "word": "seriously",
+      "start": 29.792,
+      "end": 30.256
+    },
+    {
+      "word": "wild,",
+      "start": 30.326,
+      "end": 30.802
+    },
+    {
+      "word": "which",
+      "start": 30.825,
+      "end": 30.964
+    },
+    {
+      "word": "makes",
+      "start": 31.011,
+      "end": 31.185
+    },
+    {
+      "word": "you",
+      "start": 31.208,
+      "end": 31.289
+    },
+    {
+      "word": "wonder...",
+      "start": 31.359,
+      "end": 32.044
     }
   ]
 }

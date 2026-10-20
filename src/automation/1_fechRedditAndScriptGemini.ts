@@ -6,7 +6,7 @@ dotenv.config();
 
 export interface RawSceneScript {
   sentence: string;
-  searchQuery: string;
+  visualPrompt: string;
   cameraEffect: CameraEffect;
   sfxUrl: string;
 }
@@ -157,9 +157,10 @@ Break the script into 6 to 8 short, punchy sentences (each sentence = 1 visual s
 Rule 1: Scene 1 MUST be an irresistibly cute or funny hook under 14 words (e.g. "Wait until you see what this cat does next!").
 Rule 2: The final scene loops back to Scene 1 with a playful callback.
 Rule 3: Keep language simple, joyful, and safe for all ages. NO scary, violent, or mature content.
-Rule 4: For each scene, searchQuery MUST be 3-5 specific keywords describing adorable or funny animal moments (e.g. "${gameContext} funny moment", "cute ${gameContext} compilation", "${gameContext} fail funny"). DO NOT repeat identical queries.
+Rule 4: For each scene, visualPrompt MUST describe a distinct, specific visual moment for an AI video generator, including the subject, action, environment, and camera framing. Do not describe searching for existing footage.
 Rule 5: Camera effects should be gentle — prefer zoom_in for cute close-ups, pan_left/pan_right for playful movement.
 Rule 6: SFX should be upbeat — prefer pop.mp3 for happy moments.
+Rule 7: Do not include written text, subtitles, logos, or watermarks in visualPrompt.
 `
     : `
 You are an expert viral YouTube Shorts scriptwriter for a US Gaming/Entertainment channel.
@@ -173,7 +174,8 @@ Break the script down into 6 to 8 short, punchy sentences (each sentence is 1 vi
 Rule 1: Scene 1 MUST be a shocking hook question or statement under 14 words.
 Rule 2: The final scene must loop smoothly back to Scene 1.
 Rule 3: Keep sentences concise and conversational in American English.
-Rule 4: For each scene, searchQuery MUST be 3-5 distinct keywords describing specific, dynamic in-game action (e.g. "${gameContext} combat action", "${gameContext} secret scene", "${gameContext} boss fight"). DO NOT use generic or identical queries across scenes.
+Rule 4: For each scene, visualPrompt MUST describe a distinct, specific visual moment for an AI video generator, including the subject, action, environment, and camera framing. Do not describe searching for existing footage.
+Rule 5: Do not include written text, subtitles, logos, or watermarks in visualPrompt.
 `;
 
   console.log(`🤖 Đang gửi sang Gemini (${currentModel}) để sinh kịch bản JSON chuẩn Schema...`);
@@ -202,10 +204,9 @@ Rule 4: For each scene, searchQuery MUST be 3-5 distinct keywords describing spe
                       type: Type.STRING,
                       description: 'Exact spoken sentence for this scene.',
                     },
-                    searchQuery: {
+                    visualPrompt: {
                       type: Type.STRING,
-                      description:
-                        'Specific 4-6 word YouTube search query to find exact gameplay footage.',
+                      description: 'Detailed visual prompt for generating this scene as a new video.',
                     },
                     cameraEffect: {
                       type: Type.STRING,
@@ -218,7 +219,7 @@ Rule 4: For each scene, searchQuery MUST be 3-5 distinct keywords describing spe
                       description: 'Sound effect file path',
                     },
                   },
-                  required: ['sentence', 'searchQuery', 'cameraEffect', 'sfxUrl'],
+                  required: ['sentence', 'visualPrompt', 'cameraEffect', 'sfxUrl'],
                 },
               },
             },

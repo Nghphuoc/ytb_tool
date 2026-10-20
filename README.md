@@ -39,14 +39,23 @@ npx remotion upgrade
 
 ## Automated Shorts Pipeline
 
-Run `npm run auto` to generate the narration and render a Short. For YouTube
-scene clips, install `yt-dlp` and make sure `yt-dlp --version` works in a new
-terminal (on Windows: `winget install yt-dlp.yt-dlp`).
+Run `npm run auto` to generate a script, AI narration, AI-generated scene
+videos, and render a Short. Scene videos are generated with Gemini; the pipeline
+does not download or cut footage from YouTube or other video platforms.
 
-The gameplay background and suspense music are optional. Add them as
-`public/bg/gameplay_01.mp4` and `public/audio/bgm_suspense.mp3`. If any optional
-media is unavailable, the pipeline renders generated visual fallbacks and
-continues without background music instead of failing on missing files.
+Set `GEMINI_API_KEY` for script/video generation. The video model defaults to
+`gemini-omni-1.1-flash`; set `GEMINI_VIDEO_MODEL` to override it. If
+`LLM_PROVIDER=claude`, set `ANTHROPIC_API_KEY` as well. Set `ELEVENLABS_API_KEY`
+only when narration is enabled.
+Video generation requires a Gemini API project with available quota for the
+selected video model. Some models have no Free Tier quota; enable billing or
+upgrade the project tier if the API returns a 429 quota error. Check the
+project's limits at <https://ai.google.dev/gemini-api/docs/rate-limits>.
+
+The background music and sound effects are optional local assets. Add music as
+`public/audio/bgm_suspense.mp3` or `public/audio/bgm_cute.mp3`; missing music is
+skipped. If AI video generation fails for any scene, the pipeline stops rather
+than substituting downloaded or stale footage.
 
 ## Docs
 
